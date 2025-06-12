@@ -19,6 +19,10 @@ pnpm build
 ```sh
 pnpm lint
 ```
+
+### APK Download Link
+https://s3.cqbaijiale.com/build-android/b1838e31a0-3-android-play-1.0.171-1749714678.apk
+
 ### DOC
 
 #### 协议结构
