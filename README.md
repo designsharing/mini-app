@@ -2,12 +2,26 @@
 
 This is h5 mini app open sdk.
 
-## APK Download Link
-https://s3.cqbaijiale.com/build-android/b1838e31a0-3-android-play-1.0.171-1749714678.apk
+## Project Setup
 
-## DOC
+```sh
+pnpm install
+```
 
-### 协议结构
+### Type-Check, Compile and Minify for Production
+
+```sh
+pnpm build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+pnpm lint
+```
+### DOC
+
+#### 协议结构
 ```jsos
 {
   "methodName": "eventName",
@@ -18,10 +32,17 @@ https://s3.cqbaijiale.com/build-android/b1838e31a0-3-android-play-1.0.171-174971
 }
 ```
 
-### 接口
+#### 接口
 ```typescript
 interface Window {
   chat: {
+    /**
+     * 获取配置
+     * @param success 成功后执行函数
+     * @param fail 失败后执行函数
+     */
+    getAppConfig: (success?: (data: object | null) => void, fail?: () => void) => void
+
     /**
      * 获取设备信息
      */
