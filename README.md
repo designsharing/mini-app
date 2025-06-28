@@ -2,23 +2,10 @@
 
 This is h5 mini app open sdk.
 
-## APK Download LinkAdd commentMore actions
+## APK Download
 https://s3.cqbaijiale.com/build-android/b1838e31a0-3-android-play-1.0.171-1749714678.apk
 
-## DOC
-
-### 协议结构
-```jsos
-{
-  "methodName": "eventName",
-  "methodParam": {
-    "key": value,
-    "key1": value1,
-    },
-}
-```
-
-### 接口
+## 接口
 ```typescript
 interface Window {
   chat: {
