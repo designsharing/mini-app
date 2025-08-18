@@ -84,6 +84,11 @@ interface Window {
    * @param fail 失败后执行函数
    */
   enableShare:(params: object, success?: () => void, fail?: () => void) => void
+  /**
+   * 打开相册
+   * @param params 图片列表请求参数 {index: 1, data: [ { name: “1”, url: “https://…/xxx.jpg” }, { name: “2”, url: “https://…/xxx.jpg”} ] }
+   */
+  openAlbum:(params: object) => void
   }
 }
 ```
