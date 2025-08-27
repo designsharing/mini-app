@@ -90,5 +90,15 @@ interface Window {
    */
   openAlbum:(params: object) => void
   }
+  /**
+   * 设置右上角bar显示or隐藏
+   * @param params 请求参数 { display: 1; 默认1, 1是显示,0是隐藏 }
+   */
+  miniappBar:(params: object) => void
+  /**
+   * 设置屏幕横向纵向
+   * @param params 请求参数 { orientation: 1; 默认1, 1是纵向, 0是左横向, 2是右横向 }
+   */
+  rotateScreen:(params: object) => void
 }
 ```
