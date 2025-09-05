@@ -100,5 +100,11 @@ interface Window {
    * @param params 请求参数 { orientation: 1; 默认1, 1是纵向, 0是左横向, 2是右横向 }
    */
   rotateScreen:(params: object) => void
+
+  /**
+   * flutter ready
+   * @param success 成功后执行函数
+   */
+  onReady: (success?: (data: object | null) => void) => void
 }
 ```
