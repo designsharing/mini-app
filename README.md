@@ -133,6 +133,20 @@ interface Window {
      * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 }
      */
     getAppStatus:(cb?: (data: object | null) => void) => void
+
+    /** 
+     * 往flutter客户端存储数据 
+     * @param params 需要存储的数据，数据格式 { key: '存储数据对应的key', value: '需要存储的数据' }，示例：{ key: 'userName', value: 'may' }
+     * @callback data { data: { isSuccess: true }, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 }
+     */
+    storeOnFlutter(params: object | null, cb?: (data: object | null) => void) => void
+
+    /** 
+     * 往flutter客户端获取存储的数据 
+     * @param params 需要获取的数据key，数据格式 { key: '存储数据对应的key' }，示例：{ key: 'userName'}
+     * @callback data { data: {} 返回所传key对应的数据, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 }
+     */
+    fetchStoredFromFlutter(params: object | null, cb: (data: object | null) => void) => void
   }
   
   
