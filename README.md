@@ -19,17 +19,27 @@ interface Window {
   chat: {
     /**
      * 获取配置
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构 
+     * --回调数据结构示例
+     * { 
+     *   data: {},
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
      */
-    getAppConfig: (cb?: (data: object | null) => void) => void
+    getAppConfig: (callback?: (response: object | null) => void) => void
 
     /**
      * 获取设备信息
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --回调数据结构示例 
+     * { 
+     *   data: {},
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * }
      */
-    getDeviceInfo: (cb?: (data: object | null) => void) => void
+    getDeviceInfo: (callback?: (response: object | null) => void) => void
 
     /**
      * 关闭进入小程序时flutter开启的loading
@@ -38,115 +48,188 @@ interface Window {
 
     /**
      * 小程序登陆
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构 
+     * --回调数据结构示例
+     * { 
+     *   data: {}, 
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * }
      */
-    login: (cb?: (data: object | null) => void) => void
+    login: (callback?: (response: object | null) => void) => void
 
     /**
      * 打im接口
-     * @param params 请求参数 { type: 'POST' | 'GET' 请求类型, url: string 请求地址, params: object 其他参数 }
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *   type: 'POST' | 'GET', //请求类型
+     *   url: string, //请求地址
+     *   params: object //其他参数 
+     * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构 
+     * --回调数据结构示例
+     * { 
+     *   data: {}, 
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * }
      */
-    request: (params: object, cb?: (data: object | null) => void) => void
+    request: (params: object, callback?: (response: object | null) => void) => void
 
     /**
      * 获取位置
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 403, 0代表请求正常并返回数据data, 403代表请求异常 } 
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构 
+     * --回调数据结构示例
+     * { 
+     *   data: {}, 
+     *   code: 0 | 403 //0代表请求正常，并返回数据data；403代表请求异常
+     * } 
      */
-    getLocation: (params: object, cb?: (data: object | null) => void) => void
+    getLocation: (params: object, callback?: (response: object | null) => void) => void
 
     /**
      * 打开收银台
-     * @param params 请求参数 { prepayId: string 预付订单号 }
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *   prepayId: string //预付订单号 
+     * }
      */
     openCashier: (params: object) => void
 
     /**
      * 分享链接
-     * @param params 请求参数 { url: string 小程序路由, imageUrl: string 小程序封面图, description: string 小程序描述 }
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *   url: string,  //小程序路由
+     *   imageUrl: string, //小程序封面图 
+     *   description: string //小程序描述 
+     * }
      */
     sharedLink: (params: object) => void
 
     /**
-     * 设置导航栏标题
-     * @param params 请求参数 { title: string 标题 }
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
-     */
-    setNavigationBarTitle:(params: object, cb?: (data: object | null) => void)=>void
-
-    /**
-     * 设置导航栏颜色
-     * @param params 请求参数 { color: string 颜色 }
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
-     */
-    setNavigationBarColor:(params: object, cb?: (data: object | null) => void) => void
-
-    /**
-     * 隐藏home按钮
-     * @param params 请求参数 { hide: boolean 是否隐藏 }
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
-     */
-    hideHomeButton:(params: object, cb?: (data: object | null) => void) => void
-
-    /**
      * 设置当前页面是否可以分享
-     * @param params 请求参数 { enable: boolean 是否可以分享, url: string 小程序路由, imageUrl: string 小程序封面图, description: string 小程序描述 }
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *   enable: boolean, //是否可以分享 
+     *   url: string, //小程序路由
+     *   imageUrl: string, //小程序封面图 
+     *   description: string //小程序描述 
+     * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构 
+     * --回调数据结构示例
+     * { 
+     *   data: {}, 
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * } 
      */
-    enableShare:(params: object, cb?: (data: object | null) => void) => void
+    enableShare:(params: object, callback?: (response: object | null) => void) => void
 
     /**
      * 打开相册
-     * @param params 图片列表请求参数 {index: 1, data: [ { name: “1”, url: “https://…/xxx.jpg” }, { name: “2”, url: “https://…/xxx.jpg”} ] }
+     * @param params 请求参数 
+     * --请求参数
+     * {
+     *   index: 1, 
+     *   data: [{ 
+     *            name: “1”, 
+     *            url: “https://…/xxx.jpg” 
+     *          },
+     *          { 
+     *            name: “2”, 
+     *            url: “https://…/xxx.jpg”
+     *          }] 
+     * }
      */
     openAlbum:(params: object) => void
 
     /**
      * 设置右上角bar显示or隐藏
-     * @param params 请求参数 { display: 1; 默认1, 1是显示,0是隐藏 }
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *   display: 1 //1是显示，0是隐藏；默认1（显示）
+     * }
      */
     miniappBar:(params: object) => void
 
     /**
      * 设置屏幕横向纵向
-     * @param params 请求参数 { orientation: 1; 默认1, 1是纵向, 0是左横向, 2是右横向 }
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *   orientation: 1 //1是纵向，0是左横向，2是右横向；默认1（纵向）
+     * }
      */
     rotateScreen:(params: object) => void
 
     /**
      * flutter ready
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 } 
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --回调数据结构示例 
+     * { 
+     *   data: {}, 
+     *   code: 0 | 1 //0代表请求正常并返回数据data，1代表请求报错 
+     * } 
      */
-    onReady: (cb?: (data: object | null) => void) => void
+    onReady: (callback?: (response: object | null) => void) => void
 
     /**
      * 获取程序唤醒状态
-     * @param cb 请求后执行函数
-     * @callback data { data: data, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --回调数据结构示例 
+     * { 
+     *   data: {}, 
+     *   code: 0 | 1 //0代表请求正常并返回数据data，1代表请求报错 
+     * }
      */
-    getAppStatus:(cb?: (data: object | null) => void) => void
+    getAppStatus:(callback?: (response: object | null) => void) => void
 
     /** 
      * 往flutter客户端存储数据 
-     * @param params 需要存储的数据，数据格式 { key: '存储数据对应的key', value: '需要存储的数据' }，示例：{ key: 'userName', value: 'may' }
-     * @callback data { data: { isSuccess: true }, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 }
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *    key: string, //数据存储对应的key
+     *    value: any //需要存储的数据 
+     * }
+     * --请求参数示例：{ key: 'userName', value: 'may' }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --回调数据结构示例 
+     * { 
+     *    data: { isSuccess: true }, 
+     *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
      */
-    storeOnFlutter(params: object | null, cb?: (data: object | null) => void) => void
+    storeOnFlutter(params: object | null, callback?: (response: object | null) => void) => void
 
     /** 
      * 往flutter客户端获取存储的数据 
-     * @param params 需要获取的数据key，数据格式 { key: '存储数据对应的key' }，示例：{ key: 'userName'}
-     * @callback data { data: {} 返回所传key对应的数据, code: 0 | 1, 0代表请求正常并返回数据data, 1代表请求报错 }
+     * @param params 请求参数
+     * --请求参数
+     * { 
+     *    key: string //存储的数据对应的key
+     * }
+     * --请求参数示例：{ key: 'userName'}
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构 
+     * --回调数据结构示例 
+     * { 
+     *    data: {}, //返回所传key对应的数据
+     *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * }
+     * --返回数据示例：{ key: 'userName', value: 'may' }
      */
-    fetchStoredFromFlutter(params: object | null, cb: (data: object | null) => void) => void
+    fetchStoredFromFlutter(params: object | null, callback: (response: object | null) => void) => void
   }
   
   
