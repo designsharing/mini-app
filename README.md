@@ -73,7 +73,7 @@ interface Window {
     getDeviceInfo: (callback?: (response: object | null) => void) => void
 
     /**
-     * 关闭进入小程序时flutter开启的loading
+     * 关闭进入小程序时客户端开启的loading
      * @example
      * window.addEventListener('load', () => {
      *   window.chat.closeLoading()
@@ -164,7 +164,7 @@ interface Window {
     rotateScreen:(orientation: number) => void
 
     /**
-     * 当flutter端准备就绪时会执行，可在此事件的回调中初始化前端项目
+     * 当客户端准备就绪时会执行，可在此事件的回调中初始化前端项目
      * @param callback 请求后执行函数
      * @callback response 回调数据结构
      * --回调数据结构示例 
@@ -181,7 +181,7 @@ interface Window {
     onReady: (callback?: (response: object | null) => void) => void
 
     /** 
-     * 往flutter客户端存储数据 
+     * 往客户端存储数据 
      * @param params 请求参数
      * --请求参数 
      * { 
@@ -197,17 +197,17 @@ interface Window {
      *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
      * @example
-     * window.chat.storeOnFlutter({
+     * window.chat.storeOnNative({
      *     key: 'userName',
      *     value: 'may'
      *   }, (response) => {
      *    console.log('回调数据', { data: { isSuccess: true }, code: 0})
      * });
      */
-    storeOnFlutter(params: object | null, callback?: (response: object | null) => void) => void
+    storeOnNative(params: object | null, callback?: (response: object | null) => void) => void
 
     /** 
-     * 往flutter客户端获取存储的数据 
+     * 往客户端获取存储的数据 
      * @param params 请求参数
      * --请求参数
      * { 
@@ -223,11 +223,11 @@ interface Window {
      * }
      * --返回数据示例：{ key: 'userName', value: 'may' }
      * @example
-     * window.chat.fetchStoredFromFlutter({ key: 'userName' }, (response) => {
+     * window.chat.fetchStoredFromNative({ key: 'userName' }, (response) => {
      *   console.log('取数据', response.data) // response.data => { key: 'userName', value: 'may' }
      * });
      */
-    fetchStoredFromFlutter(params: object | null, callback: (response: object | null) => void) => void
+    fetchStoredFromNative(params: object | null, callback: (response: object | null) => void) => void
   }
   
 }
