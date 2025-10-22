@@ -32,7 +32,7 @@ interface Window {
    *   data: {}, 
    *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
    * }
-   * @调用示例
+   * @example
    * window.chat.getAppConfig((response: object) => {
    *   if(response.code == 0){   //如果请求正常
    *     console.log('appConfig ',response.data)
@@ -49,7 +49,7 @@ interface Window {
      *   data: {},
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
-     * @调用示例
+     * @example
      * window.chat.getAppConfig((response: object) => {
      *   console.log('appConfig ',response.data)
      * });
@@ -65,7 +65,7 @@ interface Window {
      *   data: {},
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
-     * @调用示例
+     * @example
      * window.chat.getDeviceInfo((response: object) => {
      *   console.log('deviceInfo ',response.data)
      * });
@@ -74,7 +74,7 @@ interface Window {
 
     /**
      * 关闭进入小程序时flutter开启的loading
-     * @调用示例
+     * @example
      * window.addEventListener('load', () => {
      *   window.chat.closeLoading()
      * });
@@ -90,7 +90,7 @@ interface Window {
      *   data: {}, 
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
-     * @调用示例
+     * @example
      * window.chat.login((response) => {
      *  console.log('login code', response.data.code)
      * })
@@ -106,7 +106,7 @@ interface Window {
      *   data: {}, 
      *   code: 0 | 403 //0代表请求正常，并返回数据data；403代表请求异常
      * }
-     * @调用示例
+     * @example
      * window.chat.getLocation((response) => {
      *   console.log('location position',response.data)
      * })
@@ -120,7 +120,7 @@ interface Window {
      * { 
      *   prepayId: string //预付订单号 
      * }
-     * @调用示例
+     * @example
      * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, (response) => {
      *   //收银台操作执行完后回调后续操作
      * })
@@ -134,7 +134,7 @@ interface Window {
      * { 
      *   url: string  //小程序路由
      * }
-     * @调用示例
+     * @example
      * window.chat.sharedLink({
      *   url: '/help'
      * })
@@ -148,7 +148,7 @@ interface Window {
      * { 
      *   display: 1 //1是显示，0是隐藏；默认1（显示）
      * }
-     * @调用示例
+     * @example
      * window.chat.miniappBar(0); //设置右上角按钮隐藏
      */
     miniappBar:(params: number) => void
@@ -158,7 +158,7 @@ interface Window {
      * @param params 请求参数
      * --请求参数 
      * orientation: 1 //1是纵向，0是左横向，2是右横向；默认1（纵向）
-     * @调用示例
+     * @example
      * window.chat.rotateScreen(0); //设置左横向
      */
     rotateScreen:(orientation: number) => void
@@ -172,7 +172,7 @@ interface Window {
      *   data: {}, 
      *   code: 0 | 1 //0代表请求正常并返回数据data，1代表请求报错 
      * } 
-     * @调用示例
+     * @example
      * window.chat.onReady((response) => {
      *   //可在此事件的回调中初始化前端项目
      *   app.mount("#app");
@@ -196,7 +196,7 @@ interface Window {
      *    data: { isSuccess: true }, 
      *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
-     * @调用示例
+     * @example
      * window.chat.storeOnFlutter({
      *     key: 'userName',
      *     value: 'may'
@@ -222,7 +222,7 @@ interface Window {
      *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
      * --返回数据示例：{ key: 'userName', value: 'may' }
-     * @调用示例
+     * @example
      * window.chat.fetchStoredFromFlutter({ key: 'userName' }, (response) => {
      *   console.log('取数据', response.data) // response.data => { key: 'userName', value: 'may' }
      * });
