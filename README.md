@@ -1,5 +1,21 @@
-# mini_app_open_sdk_h5
+# index.html中引用mini-app-open-sdk@${version}.min.js文件
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <script src="/mini-app-open-sdk@1.0.17.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module">
+      window.addEventListener('load', () => {
+        window.chat.closeLoading()
+      });
+    </script>
+  </body>
+</html>
 
+# mini_app_open_sdk_h5
 This is h5 mini app open sdk.
 
 ## APK Download
