@@ -108,7 +108,7 @@ interface Window {
      * }
      * @调用示例
      * window.chat.getLocation((response) => {
-     *   console.log('location position',response.data.position)
+     *   console.log('location position',response.data)
      * })
      */
     getLocation: (callback?: (response: object | null) => void) => void
