@@ -9,10 +9,18 @@ https://s3.cqbaijiale.com/build-android/b1838e31a0-3-android-play-1.0.171-174971
 ```typescript
 interface Window {
   /**
+   * 回调返回数据结构示例
    * @example 
-   * window.chat.getAppConfig((data: any) => {
-   *   if(data.code == 0){   //如果请求正常
-   *     console.log('appConfig ',data.data)
+   * @callback response 回调返回数据结构
+   * --回调数据结构示例
+   * { 
+   *   data: {}, 
+   *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+   * }
+   * @调用示例
+   * window.chat.getAppConfig((response: object) => {
+   *   if(response.code == 0){   //如果请求正常
+   *     console.log('appConfig ',response.data)
    *   }
    * });
   */
@@ -26,6 +34,10 @@ interface Window {
      *   data: {},
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
+     * @调用示例
+     * window.chat.getAppConfig((response: object) => {
+     *   console.log('appConfig ',response.data)
+     * });
      */
     getAppConfig: (callback?: (response: object | null) => void) => void
 
@@ -38,16 +50,24 @@ interface Window {
      *   data: {},
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
+     * @调用示例
+     * window.chat.getDeviceInfo((response: object) => {
+     *   console.log('deviceInfo ',response.data)
+     * });
      */
     getDeviceInfo: (callback?: (response: object | null) => void) => void
 
     /**
      * 关闭进入小程序时flutter开启的loading
+     * @调用示例
+     * window.addEventListener('load', () => {
+     *   window.chat.closeLoading()
+     * });
      */
     closeLoading: () => void
 
     /**
-     * 小程序登陆
+     * 小程序登录
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
      * --回调数据结构示例
@@ -55,27 +75,12 @@ interface Window {
      *   data: {}, 
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
+     * @调用示例
+     * window.chat.login((response) => {
+     *  console.log('login code', response.data.code)
+     * })
      */
     login: (callback?: (response: object | null) => void) => void
-
-    /**
-     * 打im接口
-     * @param params 请求参数
-     * --请求参数 
-     * { 
-     *   type: 'POST' | 'GET', //请求类型
-     *   url: string, //请求地址
-     *   params: object //其他参数 
-     * }
-     * @param callback 请求后执行函数
-     * @callback response 回调数据结构 
-     * --回调数据结构示例
-     * { 
-     *   data: {}, 
-     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
-     * }
-     */
-    request: (params: object, callback?: (response: object | null) => void) => void
 
     /**
      * 获取位置
@@ -85,7 +90,11 @@ interface Window {
      * { 
      *   data: {}, 
      *   code: 0 | 403 //0代表请求正常，并返回数据data；403代表请求异常
-     * } 
+     * }
+     * @调用示例
+     * window.chat.getLocation((response) => {
+     *   console.log('location position',response.data.position)
+     * })
      */
     getLocation: (params: object, callback?: (response: object | null) => void) => void
 
@@ -96,6 +105,10 @@ interface Window {
      * { 
      *   prepayId: string //预付订单号 
      * }
+     * @调用示例
+     * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, () => {
+     *   //收银台操作执行完后回调后续操作
+     * })
      */
     openCashier: (params: object) => void
 
@@ -104,73 +117,39 @@ interface Window {
      * @param params 请求参数
      * --请求参数 
      * { 
-     *   url: string,  //小程序路由
-     *   imageUrl: string, //小程序封面图 
-     *   description: string //小程序描述 
+     *   url: string  //小程序路由
      * }
+     * @调用示例
+     * window.chat.sharedLink({
+     *   url: '/help'
+     * })
      */
     sharedLink: (params: object) => void
 
     /**
-     * 设置当前页面是否可以分享
-     * @param params 请求参数
-     * --请求参数 
-     * { 
-     *   enable: boolean, //是否可以分享 
-     *   url: string, //小程序路由
-     *   imageUrl: string, //小程序封面图 
-     *   description: string //小程序描述 
-     * }
-     * @param callback 请求后执行函数
-     * @callback response 回调数据结构 
-     * --回调数据结构示例
-     * { 
-     *   data: {}, 
-     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
-     * } 
-     */
-    enableShare:(params: object, callback?: (response: object | null) => void) => void
-
-    /**
-     * 打开相册
-     * @param params 请求参数 
-     * --请求参数
-     * {
-     *   index: 1, 
-     *   data: [{ 
-     *            name: “1”, 
-     *            url: “https://…/xxx.jpg” 
-     *          },
-     *          { 
-     *            name: “2”, 
-     *            url: “https://…/xxx.jpg”
-     *          }] 
-     * }
-     */
-    openAlbum:(params: object) => void
-
-    /**
-     * 设置右上角bar显示or隐藏
+     * 设置右上角按钮显示or隐藏
      * @param params 请求参数
      * --请求参数 
      * { 
      *   display: 1 //1是显示，0是隐藏；默认1（显示）
      * }
+     * @调用示例
+     * window.chat.miniappBar(0); //设置右上角按钮隐藏
      */
-    miniappBar:(params: object) => void
+    miniappBar:(params: number) => void
 
     /**
      * 设置屏幕横向纵向
      * @param params 请求参数
      * --请求参数 
-     * { 
-     *   orientation: 1 //1是纵向，0是左横向，2是右横向；默认1（纵向）
-     * }
+     * orientation: 1 //1是纵向，0是左横向，2是右横向；默认1（纵向）
+     * @调用示例
+     * window.chat.rotateScreen(0); //设置左横向
      */
-    rotateScreen:(params: object) => void
+    rotateScreen:(orientation: number) => void
 
     /**
-     * flutter ready
+     * 当flutter端准备就绪时会执行，可在此事件的回调中初始化前端项目
      * @param callback 请求后执行函数
      * @callback response 回调数据结构
      * --回调数据结构示例 
@@ -178,20 +157,13 @@ interface Window {
      *   data: {}, 
      *   code: 0 | 1 //0代表请求正常并返回数据data，1代表请求报错 
      * } 
+     * @调用示例
+     * window.chat.onReady((response) => {
+     *   //可在此事件的回调中初始化前端项目
+     *   app.mount("#app");
+     * })
      */
     onReady: (callback?: (response: object | null) => void) => void
-
-    /**
-     * 获取程序唤醒状态
-     * @param callback 请求后执行函数
-     * @callback response 回调数据结构
-     * --回调数据结构示例 
-     * { 
-     *   data: {}, 
-     *   code: 0 | 1 //0代表请求正常并返回数据data，1代表请求报错 
-     * }
-     */
-    getAppStatus:(callback?: (response: object | null) => void) => void
 
     /** 
      * 往flutter客户端存储数据 
@@ -209,6 +181,11 @@ interface Window {
      *    data: { isSuccess: true }, 
      *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
+     * @调用示例
+     * window.chat.storeOnFlutter({
+     *   key: 'userName',
+     *   value: 'may'
+     * });
      */
     storeOnFlutter(params: object | null, callback?: (response: object | null) => void) => void
 
@@ -228,10 +205,13 @@ interface Window {
      *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
      * --返回数据示例：{ key: 'userName', value: 'may' }
+     * @调用示例
+     * window.chat.fetchStoredFromFlutter({ key: 'userName' }, (response) => {
+     *   console.log('取数据', response.data) // response.data => { key: 'userName', value: 'may' }
+     * });
      */
     fetchStoredFromFlutter(params: object | null, callback: (response: object | null) => void) => void
   }
-  
   
 }
 ```
