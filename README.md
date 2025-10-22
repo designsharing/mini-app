@@ -1,4 +1,8 @@
-# index.html中引用mini-app-open-sdk@${version}.min.js文件
+# mini_app_open_sdk_h5
+This is h5 mini app open sdk.
+
+#### index.html中引用mini-app-open-sdk@${version}.min.js文件
+```html
 <!DOCTYPE html>
 <html lang="">
   <head>
@@ -14,12 +18,7 @@
     </script>
   </body>
 </html>
-
-# mini_app_open_sdk_h5
-This is h5 mini app open sdk.
-
-## APK Download
-https://s3.cqbaijiale.com/build-android/b1838e31a0-3-android-play-1.0.171-1749714678.apk
+```
 
 #### 接口
 ```typescript
