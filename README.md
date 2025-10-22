@@ -111,7 +111,7 @@ interface Window {
      *   console.log('location position',response.data.position)
      * })
      */
-    getLocation: (params: object, callback?: (response: object | null) => void) => void
+    getLocation: (callback?: (response: object | null) => void) => void
 
     /**
      * 打开收银台
@@ -121,11 +121,11 @@ interface Window {
      *   prepayId: string //预付订单号 
      * }
      * @调用示例
-     * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, () => {
+     * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, (response) => {
      *   //收银台操作执行完后回调后续操作
      * })
      */
-    openCashier: (params: object) => void
+    openCashier: (params: object, callback?: (≈: object | null) => void) => void
 
     /**
      * 分享链接
@@ -198,8 +198,10 @@ interface Window {
      * }
      * @调用示例
      * window.chat.storeOnFlutter({
-     *   key: 'userName',
-     *   value: 'may'
+     *     key: 'userName',
+     *     value: 'may'
+     *   }, (response) => {
+     *    console.log('回调数据', { data: { isSuccess: true }, code: 0})
      * });
      */
     storeOnFlutter(params: object | null, callback?: (response: object | null) => void) => void
