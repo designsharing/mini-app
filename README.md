@@ -125,7 +125,7 @@ interface Window {
      *   //收银台操作执行完后回调后续操作
      * })
      */
-    openCashier: (params: object, callback?: (≈: object | null) => void) => void
+    openCashier: (params: object, callback?: (response: object | null) => void) => void
 
     /**
      * 分享链接
