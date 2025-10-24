@@ -197,7 +197,7 @@ interface Window {
      * @example
      * window.chat.miniappBar(0); //设置右上角按钮隐藏
      */
-    miniappBar:(params: number) => void
+    miniappBar: (params: number) => void
 
     /**
      * 调用客户端预览图片
@@ -219,7 +219,7 @@ interface Window {
      * @example
      * 
      */
-    openAlbum:(params: object) => void
+    openAlbum: (params: object) => void
 
     /**
      * 设置屏幕横向纵向
@@ -229,7 +229,7 @@ interface Window {
      * @example
      * window.chat.rotateScreen(0); //设置左横向
      */
-    rotateScreen:(orientation: number) => void
+    rotateScreen: (orientation: number) => void
 
     /**
      * 当客户端准备就绪时会执行，可在此事件的回调中初始化前端项目
@@ -271,7 +271,7 @@ interface Window {
      *    console.log('回调数据', response)
      * });
      */
-    storeOnNative(params: object | null, callback?: (response: object | null) => void) => void
+    storeOnNative: (params: object | null, callback?: (response: object | null) => void) => void
 
     /** 
      * 往客户端获取存储的数据 
@@ -295,7 +295,7 @@ interface Window {
      *   console.log('取数据', response.data) 
      * });
      */
-    fetchStoredFromNative(params: object | null, callback: (response: object | null) => void) => void
+    fetchStoredFromNative: (params: object | null, callback: (response: object | null) => void) => void
   }
   
 }
