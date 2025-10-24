@@ -39,14 +39,17 @@ interface Window {
      * 获取配置
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --回调数据结构示例
+     * --repsonse示例
      * { 
-     *   data: {},
+     *   data: {
+     *     currency: "USDT",  //企业货币类型 string
+     *     workSpaceId: 1234  //企业ID number
+     *   },
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
      * @example
      * window.chat.getAppConfig((response: object) => {
-     *   console.log('appConfig ',response.data)
+     *   console.log('appConfig ',response)
      * });
      */
     getAppConfig: (callback?: (response: object | null) => void) => void
@@ -55,9 +58,15 @@ interface Window {
      * 获取设备信息
      * @param callback 请求后执行函数
      * @callback response 回调数据结构
-     * --回调数据结构示例 
+     * --repsonse示例
      * { 
-     *   data: {},
+     *   data: {
+     *     safeArea: {
+     *       top: 47.0,    //顶部安全距离 number
+     *       bottom: 34.0  //底部安全距离 number
+     *     },
+     *     languageCode: "zh"  //设备当前语言信息
+     *   },
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
      * @example
@@ -80,9 +89,11 @@ interface Window {
      * 小程序登录
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --回调数据结构示例
+     * --repsonse示例
      * { 
-     *   data: {}, 
+     *   data: {
+     *     code: "347djchd-3394-44-98dd-2323dc9cdjc" // 用户登录凭证 string
+     *   }, 
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
      * @example
@@ -96,9 +107,39 @@ interface Window {
      * 获取位置
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --回调数据结构示例
+     * --repsonse示例
      * { 
-     *   data: {}, 
+     *    data: {
+     *       "position": {
+     *         "longitude": -122.084,
+     *         "latitude": 37.4219983,
+     *         "timestamp": 1761288810843,
+     *         "accuracy": 5.0,
+     *         "altitude": 5.0,
+     *         "altitude_accuracy": 0.31958332657814026,
+     *         "floor": null,
+     *         "heading": 0.0,
+     *         "heading_accuracy": 0.0,
+     *         "speed": 0.0,
+     *         "speed_accuracy": 0.5,
+     *         "is_mocked": false,
+     *         "gnss_satellite_count": 0.0,
+     *         "gnss_satellites_used_in_fix": 0.0
+     *      },
+     *      "placemark": {
+     *        "name": "1600",
+     *        "street": "1600 Amphitheatre Pkwy",
+     *        "isoCountryCode": "US",
+     *        "country": "United States",
+     *        "postalCode": "94043",
+     *        "administrativeArea": "California",
+     *        "subAdministrativeArea": "Santa Clara County",
+     *        "locality": "Mountain View",
+     *        "subLocality": "",
+     *        "thoroughfare": "Amphitheatre Parkway",
+     *        "subThoroughfare": "1600"
+     *      }
+     *   }, 
      *   code: 0 | 403 //0代表请求正常，并返回数据data；403代表请求异常
      * }
      * @example
@@ -113,25 +154,37 @@ interface Window {
      * @param params 请求参数
      * --请求参数 
      * { 
-     *   prepayId: string //预付订单号 
+     *   prepayId: "347djchd-3394-44-98dd-2323dc9cdjc"  //预付订单号 string
      * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构 
+     * --response示例
+     * {
+     *    "appId": "23n34nm43nm34nk34jkx", //小程序ID string
+     *    "orderPayStatus": true,   //订单支付结果 boolean
+     *    "prepayId": "347djchd-3394-44-98dd-2323dc9cdjc" //预付订单号 string
+     *  }
      * @example
-     * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, (response) => {
+     * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, () => {
      *   //收银台操作执行完后回调后续操作
      * })
      */
-    openCashier: (params: object, callback?: (response: object | null) => void) => void
+    openCashier: (params: object) => void
 
     /**
      * 分享链接
      * @param params 请求参数
      * --请求参数 
      * { 
-     *   url: string  //小程序路由
+     *   url: '/help',  //要分享的小程序页面链接 string
+     *   bannerPic: 'https://example.com/help.png', //小程序封面图URL设置；设置成"local"则启动本地相册上传
+     *   description: '这是一个帮助页' //小程序描述 string
      * }
      * @example
      * window.chat.sharedLink({
-     *   url: '/help'
+     *   url: '/help',
+     *   bannerPic: 'https://example.com/help.png',
+     *   description: '这是一个帮助页'  //小程序封面图
      * })
      */
     sharedLink: (params: object) => void
@@ -140,9 +193,7 @@ interface Window {
      * 设置右上角按钮显示or隐藏
      * @param params 请求参数
      * --请求参数 
-     * { 
-     *   display: 1 //1是显示，0是隐藏；默认1（显示）
-     * }
+     * display: 1 //1是显示，0是隐藏；默认1（显示）
      * @example
      * window.chat.miniappBar(0); //设置右上角按钮隐藏
      */
@@ -162,7 +213,7 @@ interface Window {
      * 当客户端准备就绪时会执行，可在此事件的回调中初始化前端项目
      * @param callback 请求后执行函数
      * @callback response 回调数据结构
-     * --回调数据结构示例 
+     * --repsonse示例
      * { 
      *   data: {}, 
      *   code: 0 | 1 //0代表请求正常并返回数据data，1代表请求报错 
@@ -180,23 +231,22 @@ interface Window {
      * @param params 请求参数
      * --请求参数 
      * { 
-     *    key: string, //数据存储对应的key
-     *    value: any //需要存储的数据 
+     *    key: 'userName', //数据存储对应的key string
+     *    value: 'may' //需要存储的数据 string
      * }
-     * --请求参数示例：{ key: 'userName', value: 'may' }
      * @param callback 请求后执行函数
      * @callback response 回调数据结构
-     * --回调数据结构示例 
+     * --repsonse示例
      * { 
      *    data: { isSuccess: true }, 
      *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
      * @example
      * window.chat.storeOnNative({
-     *     key: 'userName',
-     *     value: 'may'
-     *   }, (response) => {
-     *    console.log('回调数据', { data: { isSuccess: true }, code: 0})
+     *   key: 'userName',
+     *   value: 'may'
+     * }, (response) => {
+     *    console.log('回调数据', response)
      * });
      */
     storeOnNative(params: object | null, callback?: (response: object | null) => void) => void
@@ -206,20 +256,21 @@ interface Window {
      * @param params 请求参数
      * --请求参数
      * { 
-     *    key: string //存储的数据对应的key
+     *    key: 'userName' //存储的数据对应的key
      * }
-     * --请求参数示例：{ key: 'userName'}
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --回调数据结构示例 
+     * --repsonse示例
      * { 
-     *    data: {}, //返回所传key对应的数据
+     *    data: {
+     *      key: 'userName', 
+     *      value: 'may'
+     *    }, //返回所传key对应的数据
      *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
      * }
-     * --返回数据示例：{ key: 'userName', value: 'may' }
      * @example
      * window.chat.fetchStoredFromNative({ key: 'userName' }, (response) => {
-     *   console.log('取数据', response.data) // response.data => { key: 'userName', value: 'may' }
+     *   console.log('取数据', response.data) 
      * });
      */
     fetchStoredFromNative(params: object | null, callback: (response: object | null) => void) => void
