@@ -1,5 +1,5 @@
 # mini_app_open_sdk_h5
-This is h5 mini app open sdk.
+This is h5 micro app open sdk.
 
 #### index.html中引用mini-app-open-sdk@${version}.min.js文件
 ```html
