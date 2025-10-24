@@ -200,6 +200,28 @@ interface Window {
     miniappBar:(params: number) => void
 
     /**
+     * 调用客户端预览图片
+     * @param params 请求参数 
+     * --请求参数
+     * {
+     *   index: 1,  //当前预览的图片在集合中的索引值
+     *   data: [  // 预览的图片集合
+     *     { 
+     *        name: “1”, 
+     *        url: “https://…/xxx.jpg” 
+     *     },
+     *     { 
+     *        name: “2”, 
+     *        url: “https://…/xxx.jpg”
+     *     }
+     *   ] 
+     * }
+     * @example
+     * 
+     */
+    openAlbum:(params: object) => void
+
+    /**
      * 设置屏幕横向纵向
      * @param params 请求参数
      * --请求参数 
