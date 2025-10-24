@@ -11,11 +11,6 @@ This is h5 mini app open sdk.
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
-    <script type="module">
-      window.addEventListener('load', () => {
-        window.chat.closeLoading()
-      });
-    </script>
   </body>
 </html>
 ```
