@@ -217,7 +217,19 @@ interface Window {
      *   ] 
      * }
      * @example
-     * 
+     * window.chat.openAlbum({
+     *   index: 1,
+     *   data: [  // 预览的图片集合
+     *     { 
+     *        name: “1”, 
+     *        url: “https://…/xxx.jpg” 
+     *     },
+     *     { 
+     *        name: “2”, 
+     *        url: “https://…/xxx.jpg”
+     *     }
+     *   ] 
+     * })
      */
     openAlbum: (params: object) => void
 
