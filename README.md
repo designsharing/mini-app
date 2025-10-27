@@ -47,6 +47,10 @@ interface Window {
      *   },
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
+     * 非企业小程序时获取，data返回{}
+     * {
+     *   data: {}, code: 0 | 1
+     * }
      * @example
      * window.chat.getAppConfig((response: object) => {
      *   console.log('appConfig ',response)
