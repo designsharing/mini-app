@@ -290,7 +290,7 @@ interface Window {
     storeOnNative: (params: object | null, callback?: (response: object | null) => void) => void
 
     /** 
-     * 往客户端获取存储的数据 
+     * 从客户端获取存储的数据 
      * @param params 请求参数
      * --请求参数
      * { 
