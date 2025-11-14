@@ -312,6 +312,90 @@ interface Window {
      * });
      */
     fetchStoredFromNative: (params: object | null, callback: (response: object | null) => void) => void
+
+    /** 
+     * 获取用户余额 
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构 
+     * --repsonse示例
+     * { 
+     *    data: {
+     *      totalAmt: 0.00,
+     *      totalAmtCurrencyType: "PEA",
+     *      PEA: {
+     *        user_avail: 0.00,
+     *        user_balance: 0.00,
+     *        user_box: 0.00
+     *      }
+     *    }, //返回所传key对应的数据
+     *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * }
+     * @example
+     * window.chat.getRequestAssets((response) => {
+     *   console.log('用户余额信息', response)
+     * });
+     */
+    getRequestAssets: (callback: (response: object | null) => void) => void
+
+    /**
+     * 发送机器人信息
+     * @param params 请求参数
+     * --请求参数 
+     * {
+     *    botName: 'timer_bot',  //机器人名称
+     *    title: '弹框的标题',
+     *    list: [
+     *      { 
+     *        label: '选项1',  // 选项标题
+     *        value: true | false // true 表示该选项被开启，false 表示关闭
+     *      },
+     *      { 
+     *        label: '选项2',  // 选项标题
+     *        value: true | false // true 表示该选项被开启，false 表示关闭
+     *      }
+     *    ]
+     * }
+     * @callback response 回调数据结构 
+     * --repsonse示例
+     * {
+     *   data:{
+     *     botName: 'timer_bot',  //机器人名称
+     *     title: '弹框的标题', 
+     *     list: [
+     *       { 
+     *         label: '选项1',  // 选项标题
+     *         value: true | false // true 表示该选项被开启，false 表示关闭
+     *       },
+     *       { 
+     *         label: '选项2',  // 选项标题
+     *         value: true | false // true 表示该选项被开启，false 表示关闭
+     *       }
+     *     ],
+     *     result : 'existing', //本次操作结果类型：
+     *                          // invalidate_bot_name  → 小程序传的机器人名字为空或无效
+     *                          // no_existing          → 服务器中不存在该机器人
+     *                          // existing             → 本地已有可用机器人（无需再创建）
+     *                          // rejected             → 用户点击了“拒绝”
+     *                          // accepted             → 用户点击了“允许”（最终能否使用取决于 can_use）
+     *                          // others               → 其它参数不合理提前返回
+     *                          // unknow               → 未知错误，try catch
+     *     can_use: '1' | '0' //机器人最终是否可用，'1'表示可直接使用，'0'表示机器人不可用（如拒绝、激活失败、机器人不存在）
+     *   },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * }
+     * @example
+     * window.chat.onSendBotInfo({
+     *   botName: 'timer_bot',
+     *   title: '发送一次以下消息',
+     *   list: [
+     *     { label: '订单变更', value: false },
+     *     { label: '审批变更', value: false }
+     *   ]
+     *  }, (data) => {
+     *   console.log('机器人数据',data)
+     * });
+     */
+    onSendBotInfo:(params: object) => void
   }
   
 }
