@@ -395,7 +395,7 @@ interface Window {
      *   console.log('机器人数据',data)
      * });
      */
-    onSendBotInfo:(params: object) => void
+    onSendBotInfo:(params: object, callback?: (response: object | null) => void) => void
   }
   
 }
