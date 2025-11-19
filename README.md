@@ -396,6 +396,13 @@ interface Window {
      * });
      */
     onSendBotInfo:(params: object, callback?: (response: object | null) => void) => void
+
+    /** 
+     * 设置fastClick
+     * @example
+     * window.chat.initFastClick(); 
+     */
+    initFastClick: () => void
   }
   
 }
