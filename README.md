@@ -403,6 +403,16 @@ interface Window {
      * window.chat.initFastClick(); 
      */
     initFastClick: () => void
+
+    /**
+     * 设置右上角按钮深色/浅色
+     * @param params 请求参数
+     * --请求参数 
+     * themeType: 1 //1是浅色，0是深色
+     * @example
+     * window.chat.setThemeType(0); //设置深色
+     */
+    setThemeType: (themeType: number) => void
   }
   
 }
