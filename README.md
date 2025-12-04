@@ -413,6 +413,16 @@ interface Window {
      * window.chat.setThemeType(0); //设置深色
      */
     setThemeType: (themeType: number) => void
+
+    /**
+     * 发送心跳
+     * @param callback 回调执行函数
+     * @example
+     * window.chat.sendKeepHeart( (data) => {
+     *   console.log(data)
+     * }); 
+     */
+    sendKeepHeart(callback?: (response: object | null) => void) => void
   }
   
 }
