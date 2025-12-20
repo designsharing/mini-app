@@ -39,7 +39,7 @@ interface Window {
      * 获取配置
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --repsonse示例
+     * --response示例
      * { 
      *   data: {
      *     currency: "USDT",  //企业货币类型 string
@@ -62,7 +62,7 @@ interface Window {
      * 获取设备信息
      * @param callback 请求后执行函数
      * @callback response 回调数据结构
-     * --repsonse示例
+     * --response示例
      * { 
      *   data: {
      *     safeArea: {
@@ -93,7 +93,7 @@ interface Window {
      * 小程序登录
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --repsonse示例
+     * --response示例
      * { 
      *   data: {
      *     code: "347djchd-3394-44-98dd-2323dc9cdjc" // 用户登录凭证 string
@@ -111,7 +111,7 @@ interface Window {
      * 获取位置
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --repsonse示例
+     * --response示例
      * { 
      *    data: {
      *       "position": {
@@ -251,7 +251,7 @@ interface Window {
      * 当客户端准备就绪时会执行，可在此事件的回调中初始化前端项目
      * @param callback 请求后执行函数
      * @callback response 回调数据结构
-     * --repsonse示例
+     * --response示例
      * { 
      *   data: {}, 
      *   code: 0 | 1 //0代表请求正常并返回数据data，1代表请求报错 
@@ -274,7 +274,7 @@ interface Window {
      * }
      * @param callback 请求后执行函数
      * @callback response 回调数据结构
-     * --repsonse示例
+     * --response示例
      * { 
      *    data: { isSuccess: true }, 
      *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
@@ -298,7 +298,7 @@ interface Window {
      * }
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --repsonse示例
+     * --response示例
      * { 
      *    data: {
      *      key: 'userName', 
@@ -317,7 +317,7 @@ interface Window {
      * 获取用户余额 
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
-     * --repsonse示例
+     * --response示例
      * { 
      *    data: {
      *      totalAmt: 0.00,
@@ -356,7 +356,7 @@ interface Window {
      *    ]
      * }
      * @callback response 回调数据结构 
-     * --repsonse示例
+     * --response示例
      * {
      *   data:{
      *     botName: 'timer_bot',  //机器人名称
