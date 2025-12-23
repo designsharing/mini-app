@@ -423,6 +423,19 @@ interface Window {
      * }); 
      */
     sendKeepHeart(callback?: (response: object | null) => void) => void
+
+    /**
+     * 设置右上角bar位置
+     * @param params 请求参数
+     * --请求参数 
+     * {x: number, y: number}
+     * @example
+     * window.chat.setMiniBarPos({
+     *  x: 30,
+     *  y: 30
+     * }); //设置右上角按钮隐藏
+     */
+    setMiniBarPos: (params: number) => void
   }
   
 }
