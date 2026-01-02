@@ -436,6 +436,16 @@ interface Window {
      * }); //设置右上角按钮隐藏
      */
     setMiniBarPos: (params: object) => void
+
+    /**
+     * 设置震动效果
+     * @param duration 震动持续时长，单位为毫秒；默认为50毫秒
+     * --请求参数 
+     * duration: 100
+     * @example
+     * window.chat.setToVibrate(100); //设设置震动效果
+     */
+    setToVibrate: (duration: number) => void
   }
   
 }
