@@ -435,7 +435,7 @@ interface Window {
      *  y: 30
      * }); //设置右上角按钮隐藏
      */
-    setMiniBarPos: (params: number) => void
+    setMiniBarPos: (params: object) => void
   }
   
 }
