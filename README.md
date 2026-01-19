@@ -446,6 +446,37 @@ interface Window {
      * window.chat.setToVibrate(100); //设设置震动效果
      */
     setToVibrate: (duration: number) => void
+
+    /**
+     * 隐藏或显示底部
+     * @param bool=true 隐藏底部，false显示底部
+     */
+    postBottomBarHide: (bool: boolean) => void
+  
+    /**
+     * 隐藏或显示导航条
+     * @param bool=true 隐藏导航条，false显示导航条
+     */
+    postMiniAppContainerAppBarHide: (bool: boolean) => void
+  
+    /**
+     * 唤起flutter的键盘操作
+     * @param action 
+     * show:打开数字键盘，不带小数点
+     * showWithDot：打开带小数点的键盘
+     * hide:关闭小数点键盘
+     */
+    openFlutterKeyboardTap(action: KeyTapActionType)=>void
+    
+    /**
+     * flutter的键盘操作传过来的值
+     * @param data 
+     * keyTap：键盘按入数字
+     * delete：键盘按入删除
+     * done：键盘按入完成
+     * value:传过来的数字或者小数点，该值是每个单独的数字，按下1，就传过来1，其他也是如此
+     */
+    getFlutterKeyboardTap(callback?: (data: object | null) => void)=>void
   }
   
 }
