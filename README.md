@@ -450,12 +450,16 @@ interface Window {
     /**
      * 隐藏或显示底部
      * @param bool=true 隐藏底部，false显示底部
+     * @example
+     * window.chat.postBottomBarHide(true); 
      */
     postBottomBarHide: (bool: boolean) => void
   
     /**
      * 隐藏或显示导航条
      * @param bool=true 隐藏导航条，false显示导航条
+     * @example
+     * window.chat.postMiniAppContainerAppBarHide(true); 
      */
     postMiniAppContainerAppBarHide: (bool: boolean) => void
   
@@ -465,6 +469,8 @@ interface Window {
      * show:打开数字键盘，不带小数点
      * showWithDot：打开带小数点的键盘
      * hide:关闭小数点键盘
+     * @example
+     * window.chat.openFlutterKeyboardTap('show')
      */
     openFlutterKeyboardTap(action: KeyTapActionType)=>void
     
@@ -475,6 +481,8 @@ interface Window {
      * delete：键盘按入删除
      * done：键盘按入完成
      * value:传过来的数字或者小数点，该值是每个单独的数字，按下1，就传过来1，其他也是如此
+     * @example
+     * window.chat.getFlutterKeyboardTap((data)=>{})
      */
     getFlutterKeyboardTap(callback?: (data: object | null) => void)=>void
   }
