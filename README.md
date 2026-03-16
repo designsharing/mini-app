@@ -391,8 +391,8 @@ interface Window {
      *     { label: '订单变更', value: false },
      *     { label: '审批变更', value: false }
      *   ]
-     *  }, (data) => {
-     *   console.log('机器人数据',data)
+     *  }, (response) => {
+     *   console.log('机器人数据',response)
      * });
      */
     onSendBotInfo:(params: object, callback?: (response: object | null) => void) => void
@@ -418,8 +418,8 @@ interface Window {
      * 发送心跳
      * @param callback 回调执行函数
      * @example
-     * window.chat.sendKeepHeart( (data) => {
-     *   console.log(data)
+     * window.chat.sendKeepHeart( (response) => {
+     *   console.log(response)
      * }); 
      */
     sendKeepHeart(callback?: (response: object | null) => void) => void
@@ -482,9 +482,42 @@ interface Window {
      * done：键盘按入完成
      * value:传过来的数字或者小数点，该值是每个单独的数字，按下1，就传过来1，其他也是如此
      * @example
-     * window.chat.getFlutterKeyboardTap((data)=>{})
+     * window.chat.getFlutterKeyboardTap((response)=>{})
      */
-    getFlutterKeyboardTap(callback?: (data: object | null) => void)=>void
+    getFlutterKeyboardTap(callback?: (response: object | null) => void)=>void
+
+    /**
+     * 打开扫码
+     * @param callback 
+     * @callback response 回调数据结构 
+     * --response示例 
+     * { 
+     *   data: {
+     *    url: 'xxx.xx/me/FCJFG9_2' // 扫码后得到的结果
+     *   }, 
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * }
+     * @example
+     * window.chat.openScan((response)=>{})
+     */
+    openScan(callback?: (response: object | null) => void)=>void
+
+    /**
+     * 打开上传头像
+     * @param bool 是否已有头像
+     * @param callback 
+     * @callback response 回调数据结构 
+     * --response示例 
+     * { 
+     *   data: {
+     *     imageUrl: 'Image/4e/65/4e65cf404236065505b35c77ea6fa38c/4e65cf404236065505b35c77ea6fa38c.jpg' //图片相对路径
+     *     iconGaussian: 'LoIhmcj]WBt7~qoeWBoeM{bHRjWB' //高斯模糊处理后
+     *   }, 
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错 
+     * }
+     * window.chat.openUploadAvatar(false,(response)=>{})
+     */
+    openUploadAvatar(callback?: (response: object | null) => void)=>void
   }
   
 }
