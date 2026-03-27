@@ -518,6 +518,14 @@ interface Window {
      * window.chat.openUploadAvatar(false,(response)=>{})
      */
     openUploadAvatar(callback?: (response: object | null) => void)=>void
+
+     /**
+      * 打开Webview
+      * @param url 要打开的网页地址
+      * @example
+      * window.chat.onOpenWebview('https://example.com')
+      */
+     onOpenWebview(url: string) => void
   }
   
 }
