@@ -526,6 +526,32 @@ interface Window {
       * window.chat.onOpenWebview('https://example.com')
       */
      onOpenWebview(url: string) => void
+
+     /**
+      * 关闭当前页面，回到控制台
+      * @example
+      * window.chat.onHomeBack()
+      */
+    onHomeBack() => void
+  
+    /**
+     * 获取头像背景色和头像文本
+     * @param name 用户名称
+     * @param id 用户ID
+     * @returns 头像显示信息
+     * --返回数据结构
+     * {
+     *   text: 'AB',          // 头像文本，取名称首字母（多词取前两词首字母）string
+     *   color0: '#FE9D7F',   // 渐变起始色 string
+     *   color1: '#F44545',   // 渐变结束色 string
+     *   background: 'linear-gradient(to bottom, #FE9D7F, #F44545)' // 背景渐变色 string
+     * }
+     * @example
+     * const avatar = window.chat.getAvatarInfo('Alice Bob', 3)
+     * // avatar.text      → 'AB'
+     * // avatar.background → 'linear-gradient(to bottom, #85A3F9, #5D60F6)'
+     */
+    getAvatarInfo(name: string, id: number) => { text: string, color0: string, color1: string, background: string }
   }
   
 }
