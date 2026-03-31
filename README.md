@@ -541,10 +541,10 @@ interface Window {
      * @returns 头像显示信息
      * --返回数据结构
      * {
-     *   text: 'AB',          // 头像文本，取名称首字母（多词取前两词首字母）string
-     *   color0: '#FE9D7F',   // 渐变起始色 string
-     *   color1: '#F44545',   // 渐变结束色 string
-     *   background: 'linear-gradient(to bottom, #FE9D7F, #F44545)' // 背景渐变色 string
+     *   text: 'AB',          // 头像文本，取名称首字母（多词取前两词首字母）
+     *   color0: '#FE9D7F',   // 渐变起始色 
+     *   color1: '#F44545',   // 渐变结束色 
+     *   background: 'linear-gradient(to bottom, #FE9D7F, #F44545)' // 背景渐变色 
      * }
      * @example
      * const avatar = window.chat.getAvatarInfo('Alice Bob', 3)
@@ -552,6 +552,103 @@ interface Window {
      * // avatar.background → 'linear-gradient(to bottom, #85A3F9, #5D60F6)'
      */
     getAvatarInfo(name: string, id: number) => { text: string, color0: string, color1: string, background: string }
+
+    /**
+     * 蓝牙 - 开始扫描附近设备
+     * @param callback 回调执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: {
+     *     scanning: true,           // 是否正在扫描 boolean；false 表示扫描已结束
+     *     devices: [                // 当前已发现的设备列表 array
+     *       {
+     *         deviceId: '5C:1C:88:44:56:B7',  // 设备唯一标识（MAC地址）
+     *         name: 'TPY-S(BLE)',             // 设备名称
+     *         rssi: 0,                        // 信号强度，越大越近
+     *         type: 'generic',                // 设备类型枚举值 
+     *         typeLabel: '经典蓝牙',           // 设备类型中文描述
+     *         isConnected: false              // 是否已连接，扫描列表中始终为 false
+     *       },
+     *     ],
+     *     error: '蓝牙权限被拒绝'  // 仅失败时存在，如"蓝牙权限被拒绝"、"请先开启蓝牙" 
+     *   },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.bluetoothStartScan((response) => {
+     *   if (!response.data.scanning && response.data.error) {
+     *     console.error('扫描异常', response.data.error)
+     *     return
+     *   }
+     *   console.log('已发现设备', response.data.devices)
+     * })
+     */
+    bluetoothStartScan(callback?: (response: object | null) => void) => void
+    
+    /**
+     * 蓝牙 - 停止扫描设备
+     * @param callback 回调执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: {
+     *     scanning: false  // 扫描已停止 boolean
+     *   },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.bluetoothStopScan((response) => {
+     *   if (response.code === 0) {
+     *     console.log('扫描已停止', response.data.scanning)
+     *   }
+     * })
+     */
+    bluetoothStopScan(callback?: (response: object | null) => void) => void
+    
+    /**
+     * 蓝牙 - 连接指定设备
+     * @param deviceId 要连接的设备唯一标识，由 bluetoothStartScan 返回的 devices[].deviceId
+     * @param callback 回调执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: {
+     *     deviceId: 'xx:xx:xx:xx:xx:xx',  // 已连接的设备唯一标识
+     *     connected: true                  // 是否连接成功
+     *   },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.bluetoothConnect('xx:xx:xx:xx:xx:xx', (response) => {
+     *   if (response.code === 0 && response.data.connected) {
+     *     console.log('连接成功', response.data.deviceId)
+     *   }
+     * })
+     */
+    bluetoothConnect(deviceId: string, callback?: (response: object | null) => void) => void
+    
+    
+    /**
+     * 蓝牙 - 断开当前已连接的设备
+     * @param callback 回调执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: {
+     *     deviceId: 'xx:xx:xx:xx:xx:xx',  // 已断开的设备唯一标识 
+     *     connected: false                  // 连接状态，断开后为 false 
+     *   },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.bluetoothDisconnect((response) => {
+     *   if (response.code === 0) {
+     *     console.log('已断开设备', response.data.deviceId)
+     *   }
+     * })
+     */
+    bluetoothDisconnect(callback?: (response: object | null) => void) => void
   }
   
 }
