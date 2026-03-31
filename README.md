@@ -537,7 +537,7 @@ interface Window {
     /**
      * 获取头像背景色和头像文本
      * @param name 用户名称
-     * @param id 用户ID
+     * @param id 用户user_id
      * @returns 头像显示信息
      * --返回数据结构
      * {
