@@ -639,25 +639,22 @@ interface Window {
      * {
      *   data: {
      *     text     : string,  // 头像上显示的缩写文字（首字符大写，为空时返回 "-"）
-     *     color0   : string,  // 渐变起始色 (#RRGGBB)
-     *     color1   : string,  // 渐变结束色 (#RRGGBB)
+     *     color0   : string,  // 渐变起始色，默认'#DBDBDB'
+     *     color1   : string,  // 渐变结束色，默认 '#B8B8B8'
      *     background: string, // 背景渐变色 linear-gradient(to bottom, color0, color1)
-     *     textColor: string,  // 文字颜色 (#RRGGBB)
+     *     textColor: string,  // 文字颜色，默认'#fff'
      *   },
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
      * @example
      * window.chat.getMyAvatarInfo((response) => {
-     *   if (response.code === 0) {
      *     console.log(response.data.text)       // 'AB'
      *     console.log(response.data.color0)     // '#85A3F9'
      *     console.log(response.data.color1)     // '#5D60F6'
      *     console.log(response.data.background) // 'linear-gradient(to bottom, #85A3F9, #5D60F6)'
      *     console.log(response.data.textColor)  // '#FFFFFF'
-     *   }
      * })
      */
-    getMyAvatarInfo(callback?: (response: object | null) => void) => void
   }
   
 }
