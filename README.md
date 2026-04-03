@@ -535,25 +535,6 @@ interface Window {
     onHomeBack() => void
   
     /**
-     * 获取头像背景色和头像文本
-     * @param name 用户名称
-     * @param id 用户user_id
-     * @returns 头像显示信息
-     * --返回数据结构
-     * {
-     *   text: 'AB',          // 头像文本，取名称首字母（多词取前两词首字母）
-     *   color0: '#FE9D7F',   // 渐变起始色 
-     *   color1: '#F44545',   // 渐变结束色 
-     *   background: 'linear-gradient(to bottom, #FE9D7F, #F44545)' // 背景渐变色 
-     * }
-     * @example
-     * const avatar = window.chat.getAvatarInfo('Alice Bob', 3)
-     * // avatar.text      → 'AB'
-     * // avatar.background → 'linear-gradient(to bottom, #85A3F9, #5D60F6)'
-     */
-    getAvatarInfo(name: string, id: number) => { text: string, color0: string, color1: string, background: string }
-
-    /**
      * 蓝牙 - 开始扫描附近设备
      * @param callback 回调执行函数
      * @callback response 回调数据结构
@@ -649,6 +630,34 @@ interface Window {
      * })
      */
     bluetoothDisconnect(callback?: (response: object | null) => void) => void
+
+    /**
+     * 获取我的头像信息
+     * @param callback 回调执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: {
+     *     text     : string,  // 头像上显示的缩写文字（首字符大写，为空时返回 "-"）
+     *     color0   : string,  // 渐变起始色 (#RRGGBB)
+     *     color1   : string,  // 渐变结束色 (#RRGGBB)
+     *     background: string, // 背景渐变色 linear-gradient(to bottom, color0, color1)
+     *     textColor: string,  // 文字颜色 (#RRGGBB)
+     *   },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.getMyAvatarInfo((response) => {
+     *   if (response.code === 0) {
+     *     console.log(response.data.text)       // 'AB'
+     *     console.log(response.data.color0)     // '#85A3F9'
+     *     console.log(response.data.color1)     // '#5D60F6'
+     *     console.log(response.data.background) // 'linear-gradient(to bottom, #85A3F9, #5D60F6)'
+     *     console.log(response.data.textColor)  // '#FFFFFF'
+     *   }
+     * })
+     */
+    getMyAvatarInfo(callback?: (response: object | null) => void) => void
   }
   
 }
