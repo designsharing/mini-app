@@ -655,6 +655,31 @@ interface Window {
      *     console.log(response.data.textColor)  // '#FFFFFF'
      * })
      */
+
+    /**
+     * 根据聊天室 ID 直接进入聊天页
+     * @param chatId 聊天室 ID（必填）number
+     * @param callback 回调执行函数
+     * @callback response 回调数据结构
+     * --response示例（成功）
+     * {
+     *   success: true
+     * }
+     * --response示例（找不到聊天室）
+     * {
+     *   success: false,
+     *   error: string  // 错误描述
+     * }
+     * @example
+     * window.chat.openChatRoom(123, (response) => {
+     *   if (response.success) {
+     *     console.log('已跳转聊天室')
+     *   } else {
+     *     console.error('跳转失败', response.error)
+     *   }
+     * })
+     */
+    openChatRoom(chatId: number, callback?: (response: object | null) => void) => void
   }
   
 }
