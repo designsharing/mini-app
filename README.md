@@ -680,6 +680,24 @@ interface Window {
      * })
      */
     openChatRoom(chatId: number, callback?: (response: object | null) => void) => void
+
+    /**
+     * 设置屏幕常亮
+     * @param keepScreenOn true 开启常亮，false 关闭常亮（允许熄屏）
+     * @param callback 回调执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   success: true,        //本次操作是否成功 boolean
+     *   keepScreenOn: true    //当前屏幕常亮状态 boolean
+     * }
+     * @example
+     * window.chat.setKeepScreenOn(true, (response) => {
+     *   console.log('屏幕常亮已开启', response.keepScreenOn)
+     * })
+     * window.chat.setKeepScreenOn(false) //关闭屏幕常亮
+     */
+    setKeepScreenOn(keepScreenOn: boolean, callback?: (response: object | null) => void) => void
   }
   
 }
