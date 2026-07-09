@@ -698,6 +698,55 @@ interface Window {
      * window.chat.setKeepScreenOn(false) //关闭屏幕常亮
      */
     setKeepScreenOn(keepScreenOn: boolean, callback?: (response: object | null) => void) => void
+
+    /** 
+     * 往客户端存储全局数据 
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *    key: 'userName', //数据存储对应的key string
+     *    value: 'may' //需要存储的数据 string
+     * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * { 
+     *    data: { isSuccess: true }, 
+     *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.postSaveGlobalLocalStorage({
+     *   key: 'userName',
+     *   value: 'may'
+     * }, (response) => {
+     *    console.log('回调数据', response)
+     * });
+     */
+    postSaveGlobalLocalStorage: (params: object | null, callback?: (response: object | null) => void) => void
+
+    /** 
+     * 往客户端获取全局存储的数据 
+     * @param params 请求参数
+     * --请求参数 
+     * { 
+     *    key: 'userName', //需要读取数据对应的key string
+     * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * { 
+     *    data: { key: 'userName', value: 'may' }, //返回所传key对应的数据
+     *    code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.postReadGlobalLocalStorage({
+     *   key: 'userName'
+     * }, (response) => {
+     *    console.log('回调数据', response)
+     * });
+     */
+    postReadGlobalLocalStorage: (params: object | null, callback: (response: object | null) => void) => void
+    
   }
   
 }
