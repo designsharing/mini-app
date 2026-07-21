@@ -746,7 +746,145 @@ interface Window {
      * });
      */
     postReadGlobalLocalStorage: (params: object | null, callback: (response: object | null) => void) => void
-    
+
+    /**
+     * 显示 Flutter 原生 Toast
+     * @param params 请求参数
+     * --请求参数
+     * {
+     *   msg: '操作成功',  //Toast 文案 string
+     *   message: '操作成功', //msg 的兼容别名，二者传其一即可 string
+     *   type: 'success' | 'error' | 'fail' | 'warning' | 'info' //Toast 类型，默认 info
+     * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: { success: true },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.showToast({ msg: '操作成功', type: 'success' }, (response) => {
+     *   console.log('toast 结果', response)
+     * });
+     */
+    showToast: (params: object, callback?: (response: object | null) => void) => void
+  
+    /**
+     * 关闭当前外部应用面板/小程序容器，返回上一层级
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: {},
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.closeApp((response) => {
+     *   //先回传成功再关闭容器，避免页面销毁后收不到回调
+     *   console.log('closeApp 结果', response)
+     * });
+     */
+    closeApp: (callback?: (response: object | null) => void) => void
+  
+    /**
+     * 设置 Flutter 小程序容器顶部导航栏标题
+     * @param params 请求参数
+     * --请求参数
+     * {
+     *   title: '首页' //导航栏标题 string
+     * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: { success: true },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.setNavigationBarTitle({ title: '首页' }, (response) => {
+     *   console.log('设置标题结果', response)
+     * });
+     */
+    setNavigationBarTitle: (params: object, callback?: (response: object | null) => void) => void
+  
+    /**
+     * 打开 Flutter 日期选择器，支持按月选择或日期区间选择
+     * @param params 请求参数
+     * --请求参数
+     * {
+     *   isTimePeriod: false, //false 为按月选择，返回 yyyy/MM；true 为日期区间，返回 yyyy/MM/dd boolean
+     *   startTime: '2024/01/01', //区间模式下的起始日期 string
+     *   endTime: '2024/12/31' //区间模式下的结束日期 string
+     * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: { value: '2024/06' }, //按月返回 yyyy/MM，区间返回起止日期
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错，用户取消或非法参数返回失败
+     * }
+     * @example
+     * window.chat.showPicker({ isTimePeriod: false }, (response) => {
+     *   console.log('选择结果', response)
+     * });
+     * 说明：日期限制在 2020 至 2100 年，区间不能超过一年；用户取消或输入无效时返回失败，不能静默不回调。
+     */
+    showPicker: (params: object, callback?: (response: object | null) => void) => void
+  
+    /**
+     * 获取宿主当前网络类型
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: { networkType: 'wifi' | 'mobile' | 'none' },
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.getNetworkType((response) => {
+     *   console.log('网络类型', response.data.networkType)
+     * });
+     */
+    getNetworkType: (callback?: (response: object | null) => void) => void
+  
+    /**
+     * 让 Flutter 当前输入焦点失焦，从而隐藏系统键盘
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: {},
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.hideKeyboard((response) => {
+     *   console.log('hideKeyboard 结果', response)
+     * });
+     */
+    hideKeyboard: (callback?: (response: object | null) => void) => void
+  
+    /**
+     * 根据用户 ID 打开与好友的聊天页
+     * @param params 请求参数
+     * --请求参数
+     * {
+     *   userId: 12345 //目标用户 ID，须能转换为大于 0 的值 number | string
+     * }
+     * @param callback 请求后执行函数
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: { success: true }, //跳转成功；用户无效、频率超限或跳转失败返回错误
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * window.chat.sendMessageToFriend({ userId: 12345 }, (response) => {
+     *   console.log('跳转结果', response)
+     * });
+     * 说明：Flutter 侧限制每分钟最多调用 10 次。
+     */
+    sendMessageToFriend: (params: object, callback?: (response: object | null) => void) => void
   }
   
 }
