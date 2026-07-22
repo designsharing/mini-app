@@ -1,6 +1,13 @@
 # mini_app_open_sdk_h5
 This is h5 micro app open sdk.
 
+
+#### sdk-global.ts 什么情况下需要引入
+`sdk-global.ts` 是 SDK 的全局 TypeScript 类型声明文件，只含类型声明、无运行时逻辑。
+
+- ✅ 使用方是 **TypeScript 项目**，希望调用 `window.chat.*` 等 API 时获得类型提示、参数校验和自动补全时引入。将文件拷入项目（建议重命名为 `sdk-global.d.ts`），并确保它在 `tsconfig.json` 的 `include` 范围内即可。
+- ❌ 使用方是**纯 JS 项目**或不需要类型检查时**无需引入**
+  
 #### index.html中引用mini-app-open-sdk@${version}.min.js文件
 ```html
 <!DOCTYPE html>
