@@ -892,6 +892,36 @@ interface Window {
      * 说明：Flutter 侧限制每分钟最多调用 10 次。
      */
     sendMessageToFriend: (params: object, callback?: (response: object | null) => void) => void
+
+    /**
+     * 小程序生命周期探测
+     * @param params 请求参数（诊断动作及动作参数）
+     * --请求参数
+     * {
+     *   action: 'getReport' | 'getStatus' | 'restartServer' | 'reloadPage' | 'setAutoRepair', //诊断动作
+     *   //  getReport      → 获取诊断报告
+     *   //  getStatus      → 获取当前运行状态
+     *   //  restartServer  → 重启服务
+     *   //  reloadPage     → 重新加载页面
+     *   //  setAutoRepair  → 设置是否自动修复
+     *   value: null | boolean //action 为 setAutoRepair 时传 boolean（是否开启自动修复），其余 action 传 null
+     * }
+     * @param callback 请求后执行函数（Flutter 回包）
+     * @callback response 回调数据结构
+     * --response示例
+     * {
+     *   data: {}, //探测结果数据，随 action 不同而不同
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     * @example
+     * //获取诊断报告
+     * window.chat.miniAppLifecycleProbe({ action: 'getReport', value: null }, (response) => {
+     *   console.log('生命周期探测结果', response)
+     * });
+     * //开启自动修复
+     * window.chat.miniAppLifecycleProbe({ action: 'setAutoRepair', value: true });
+     */
+    miniAppLifecycleProbe: (params: object, callback?: (response: object | null) => void) => void
   }
   
 }
