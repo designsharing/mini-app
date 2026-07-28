@@ -662,7 +662,7 @@ interface Window {
      *     console.log(response.data.textColor)  // '#FFFFFF'
      * })
      */
-    getMyAvatarInfo(name: string, id: number) => { text: string, color0: string, color1: string, background: string }
+    getMyAvatarInfo(callback?: (response: object | null) => void) => void
 
     /**
      * 根据聊天室 ID 直接进入聊天页
