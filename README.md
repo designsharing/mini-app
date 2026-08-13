@@ -426,7 +426,7 @@ interface Window {
      * @param appIdOrCallback 当前小程序 appId，或直接传入回调函数
      * @param callback 第一个参数为 appId 时的回调函数
      * @example
-     * window.chat.sendKeepHeart('app-id', (response) => {
+     * window.chat.sendKeepHeart(${小程序ID app-id}, (response) => {
      *   console.log(response)
      * });
      */
