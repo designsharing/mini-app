@@ -423,13 +423,17 @@ interface Window {
 
     /**
      * 发送心跳
-     * @param callback 回调执行函数
+     * @param appIdOrCallback 当前小程序 appId，或直接传入回调函数
+     * @param callback 第一个参数为 appId 时的回调函数
      * @example
-     * window.chat.sendKeepHeart( (response) => {
+     * window.chat.sendKeepHeart('app-id', (response) => {
      *   console.log(response)
-     * }); 
+     * });
      */
-    sendKeepHeart(callback?: (response: object | null) => void) => void
+    sendKeepHeart(
+      appIdOrCallback?: string | ((response: object | null) => void),
+      callback?: (response: object | null) => void
+    ) => void
 
     /**
      * 设置右上角bar位置
