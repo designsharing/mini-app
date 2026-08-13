@@ -927,6 +927,14 @@ interface Window {
      * window.chat.miniAppLifecycleProbe({ action: 'setAutoRepair', value: true });
      */
     miniAppLifecycleProbe: (params: object, callback?: (response: object | null) => void) => void
+
+    /**
+     * 下载文件
+     * @param url 文件下载地址
+     * @example
+     * window.chat.downloadFile('https://example.com/file.pdf');
+     */
+    downloadFile: (url: string) => void
   }
   
 }
