@@ -511,7 +511,7 @@ interface Window {
      * @example
      * window.chat.openScan((response)=>{})
      */
-    openScan(callback?: (response: object | null) => void)=>void
+    openScan(bool: boolean, callback?: (response: object | null) => void)=>void
 
     /**
      * 打开上传头像
