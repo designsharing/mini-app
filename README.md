@@ -511,7 +511,7 @@ interface Window {
      * @example
      * window.chat.openScan((response)=>{})
      */
-    openScan(bool: boolean, callback?: (response: object | null) => void)=>void
+    openScan(callback?: (response: object | null) => void)=>void
 
     /**
      * 打开上传头像
@@ -528,7 +528,7 @@ interface Window {
      * }
      * window.chat.openUploadAvatar(false,(response)=>{})
      */
-    openUploadAvatar(callback?: (response: object | null) => void)=>void
+    openUploadAvatar(bool: boolean, callback?: (response: object | null) => void)=>void
 
      /**
       * 打开Webview
