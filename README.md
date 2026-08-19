@@ -901,10 +901,34 @@ interface Window {
     /**
      * 下载文件
      * @param url 文件下载地址
+     * @returns 下载结果 Promise
+     * --进行中回参（options.onProgress）
+     * {
+     *   url: 'https://example.com/file.pdf', //文件下载地址 string
+     *   progress: 42, //下载进度，0-100 number
+     *   received: 4404019, //已接收字节数 number
+     *   total: 10485760 //文件总字节数，未知时为 -1 number
+     * }
+     * --最终态回参（Promise then/catch）
+     * {
+     *   url: 'https://example.com/file.pdf', //文件下载地址 string
+     *   success: true, //是否下载或命中缓存成功 boolean
+     *   localPath: '/path/to/file.pdf', //成功时的本地文件路径；失败时为 null string | null
+     *   fromCache: false, //是否命中 Flutter 本地缓存 boolean
+     *   error: '下载异常: ...' //失败原因，仅失败时存在 string
+     * }
      * @example
-     * window.chat.downloadFile('https://example.com/file.pdf');
+     * window.chat.downloadFile('https://example.com/file.pdf', {
+     *   onProgress(progress) {
+     *     console.log('下载进度', progress.progress, progress.received, progress.total)
+     *   }
+     * }).then((result) => {
+     *   console.log('下载完成', result.localPath, result.fromCache)
+     * }).catch((error) => {
+     *   console.error('下载失败', error.error)
+     * });
      */
-    downloadFile: (url: string) => void
+    downloadFile: (url: string, options?: object) => Promise<object>
   }
   
 }
