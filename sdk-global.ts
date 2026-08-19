@@ -88,6 +88,27 @@ export interface SendMessageToFriendParams {
   userId: number | string
 }
 
+export interface DownloadFileProgressData {
+  url: string
+  progress: number
+  received: number
+  total: number
+  [key: string]: any
+}
+
+export interface DownloadFileResultData {
+  url: string
+  success: boolean
+  localPath: string | null
+  fromCache: boolean
+  error?: string
+  [key: string]: any
+}
+
+export interface DownloadFileOptions {
+  onProgress?: (progress: DownloadFileProgressData) => void
+}
+
 export type MiniAppLifecycleProbeParams =
   | {
       action: 'getReport' | 'getStatus' | 'restartServer' | 'reloadPage'
@@ -1068,7 +1089,7 @@ declare global {
       /** 打开 Webview */
       onOpenWebview: (url: string) => void
       /** 下载文件 */
-      downloadFile: (url: string) => void
+      downloadFile: (url: string, options?: DownloadFileOptions) => Promise<DownloadFileResultData>
       /** 蓝牙 - 开始扫描附近设备 */
       bluetoothStartScan: (callback?: (data: object | null) => void) => void
       /** 蓝牙 - 停止扫描设备 */
