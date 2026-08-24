@@ -12,6 +12,17 @@ export interface KeepHeartResponseData {
 
 export type KeepHeartCallback = (data: object | null) => void
 
+export type RequestSharedLinkParams = Record<string, unknown>
+
+export interface RequestSharedLinkData {
+  url: string
+}
+
+export interface RequestSharedLinkResponse {
+  code: number
+  data: RequestSharedLinkData
+}
+
 export type WsActionQueueData = {
   requestId: string
   action: string
@@ -781,6 +792,15 @@ declare global {
        * })
        */
       sharedLink: (params: object) => void
+
+      /**
+       * 请求小程序分享链接
+       * Flutter 事件：onShareMiniAppLink
+       */
+      requestSharedLink: (
+        params: RequestSharedLinkParams,
+        callback?: (response: RequestSharedLinkResponse | null) => void
+      ) => void
 
       /**
        * 调用客户端预览图片
