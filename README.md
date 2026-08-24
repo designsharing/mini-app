@@ -929,6 +929,19 @@ interface Window {
      * });
      */
     downloadFile: (url: string, options?: object) => Promise<object>
+
+    /**
+     * 请求小程序分享链接
+     * Flutter 事件：onShareMiniAppLink
+     * @example
+     * window.chat.requestSharedLink({ invite_code: 'hereisthecode' }, (response) => {
+     *   console.log(response.data.url)
+     * })
+     */
+    requestSharedLink: (
+      params: Record<string, unknown>,
+      callback?: (response: { code: number; data: { url: string } } | null) => void
+    ) => void
   }
   
 }
