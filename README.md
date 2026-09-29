@@ -942,6 +942,106 @@ interface Window {
       params: Record<string, unknown>,
       callback?: (response: { code: number; data: { url: string } } | null) => void
     ) => void
+
+    /**
+     * Passkey 原生能力
+     *
+     * 使用前提：Flutter 宿主需要实现以下 Bridge 方法：
+     * - onPasskeyGetCapabilities
+     * - onPasskeyCreate
+     * - onPasskeyGet
+     * - onPasskeyCancel
+     *
+     * 四个方法均返回 Promise，响应结构为：
+     * {
+     *   data: {}, //Flutter 返回的业务数据
+     *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+     * }
+     *
+     * SDK 内部用于路由的 methodName 不会透传给 H5。
+     */
+    passkey: {
+      /**
+       * 检测当前设备和 Flutter 宿主是否支持 Passkey
+       * Flutter 事件：onPasskeyGetCapabilities
+       * @returns Passkey 能力检测结果 Promise
+       * @example
+       * const response = await window.chat.passkey.getCapabilities()
+       * if (response?.code === 0) {
+       *   console.log('Passkey 能力信息', response.data)
+       * }
+       */
+      getCapabilities: () => Promise<{ data: object; code: number } | null>
+
+      /**
+       * 创建 Passkey
+       * Flutter 事件：onPasskeyCreate
+       * @param params 请求参数
+       * --请求参数
+       * {
+       *   requestId: '唯一请求标识', //建议每次调用生成新的 requestId string
+       *   publicKey: {} //业务后端返回的 Passkey 注册参数，必须可以被 JSON.stringify 序列化 object
+       * }
+       * @returns Passkey 创建结果 Promise
+       * @example
+       * const requestId = crypto.randomUUID()
+       * const response = await window.chat.passkey.create({
+       *   requestId,
+       *   publicKey: registerOptions
+       * })
+       * if (response?.code === 0) {
+       *   //将 response.data 提交给业务后端完成注册验证
+       *   console.log('创建 Passkey 成功', response.data)
+       * }
+       */
+      create: (params: {
+        requestId: string
+        publicKey: Record<string, unknown>
+      }) => Promise<{ data: object; code: number } | null>
+
+      /**
+       * 使用已有 Passkey 进行认证
+       * Flutter 事件：onPasskeyGet
+       * @param params 请求参数
+       * --请求参数
+       * {
+       *   requestId: '唯一请求标识', //建议每次调用生成新的 requestId string
+       *   publicKey: {} //业务后端返回的 Passkey 认证参数，必须可以被 JSON.stringify 序列化 object
+       * }
+       * @returns Passkey 认证结果 Promise
+       * @example
+       * const requestId = crypto.randomUUID()
+       * const response = await window.chat.passkey.get({
+       *   requestId,
+       *   publicKey: authenticationOptions
+       * })
+       * if (response?.code === 0) {
+       *   //将 response.data 提交给业务后端完成登录验证
+       *   console.log('Passkey 认证成功', response.data)
+       * }
+       */
+      get: (params: {
+        requestId: string
+        publicKey: Record<string, unknown>
+      }) => Promise<{ data: object; code: number } | null>
+
+      /**
+       * 取消指定的 Passkey 请求
+       * Flutter 事件：onPasskeyCancel
+       * @param params 请求参数
+       * --请求参数
+       * {
+       *   requestId: '需要取消的请求标识' string
+       * }
+       * @returns 取消结果 Promise
+       * @example
+       * const response = await window.chat.passkey.cancel({ requestId })
+       * console.log('取消 Passkey 结果', response)
+       */
+      cancel: (params: {
+        requestId: string
+      }) => Promise<{ data: object; code: number } | null>
+    }
   }
   
 }
