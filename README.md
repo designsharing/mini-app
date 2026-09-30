@@ -1041,6 +1041,38 @@ interface Window {
       cancel: (params: {
         requestId: string
       }) => Promise<{ data: object; code: number } | null>
+
+      /**
+       * 获取客服列表，由小程序展示列表
+       * code === 0 表示成功，data.list 可以为空数组；列表字段原样返回
+       * @example
+       * window.chat.getSupportList((response) => {
+       *   if (response.code === 0) {
+       *     console.log('客服列表', response.data?.list ?? [])
+       *   } else {
+       *     console.error('获取客服列表失败', response.code)
+       *   }
+       * })
+       */
+      getSupportList: (callback?: (response: object | null) => void) => void
+  
+      /**
+       * 根据客服 uid 让 Flutter 打开聊天页，uid 是所选客服用户 ID，不是当前用户或聊天室 ID
+       * code === 0 表示成功，成功 data 为 {}；其他 code 原样传递
+       * @param { uid } 客服用户ID
+       * @example
+       * window.chat.contactCustomerService({ uid: 1001 }, (response) => {
+       *   if (response.code === 0) {
+       *     console.log('已打开客服聊天')
+       *   } else {
+       *     console.error('打开客服聊天失败', response.code)
+       *   }
+       * })
+       */
+      contactCustomerService: (
+        params: {uid: 0},
+        callback?: (response: object | null) => void
+      ) => void
     }
   }
   
