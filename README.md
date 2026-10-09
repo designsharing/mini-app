@@ -1045,8 +1045,9 @@ interface Window {
       /**
        * 获取客服列表，由小程序展示列表
        * code === 0 表示成功，data.list 可以为空数组；列表字段原样返回
+       * @param labelId 不同类型的客服组 ID，实际业务中自行获取
        * @example
-       * window.chat.getSupportList((response) => {
+       * window.chat.getSupportList(7, (response) => {
        *   if (response.code === 0) {
        *     console.log('客服列表', response.data?.list ?? [])
        *   } else {
@@ -1054,14 +1055,15 @@ interface Window {
        *   }
        * })
        */
-      getSupportList: (callback?: (response: object | null) => void) => void
+      getSupportList: (labelId: number | string, callback?: (response: object | null) => void) => void
   
       /**
-       * 根据客服 uid 让 Flutter 打开聊天页，uid 是所选客服用户 ID，不是当前用户或聊天室 ID
+       * 根据所选客服 username 和客服组 labelId 让 Flutter 打开聊天页
+       * username 必须是非空且不为纯空白的字符串，否则同步抛出 TypeError
        * code === 0 表示成功，成功 data 为 {}；其他 code 原样传递
-       * @param { uid } 客服用户ID
+       * @param { username, labelId } username 为客服用户名；labelId 为不同类型的客服组 ID，实际生产中自行获取
        * @example
-       * window.chat.contactCustomerService({ uid: 1001 }, (response) => {
+       * window.chat.contactCustomerService({ username: 'lex0000', labelId: 7 }, (response) => {
        *   if (response.code === 0) {
        *     console.log('已打开客服聊天')
        *   } else {
@@ -1070,7 +1072,7 @@ interface Window {
        * })
        */
       contactCustomerService: (
-        params: {uid: 0},
+        params: { username: string, labelId: number | string },
         callback?: (response: object | null) => void
       ) => void
     }
