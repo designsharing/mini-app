@@ -1,0 +1,72 @@
+---
+title: "客服"
+description: "按功能查阅 客服 相关 SDK 方法。"
+---
+
+这两个方法属于 `window.chat`，与 `sdk-global.ts` 的 `NormalChatApi` 声明及原调用示例一致；原 README 将它们缩进在 Passkey 内，此处分组已纠正。
+
+## getSupportList
+
+获取客服列表，由小程序展示列表
+
+调用路径：`window.chat.getSupportList`。
+
+### 接口声明
+
+```typescript
+getSupportList: (labelId: number | string, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+code === 0 表示成功，data.list 可以为空数组；列表字段原样返回
+@param labelId 不同类型的客服组 ID，实际业务中自行获取
+```
+
+### 调用示例
+
+```javascript
+window.chat.getSupportList(7, (response) => {
+  if (response.code === 0) {
+    console.log('客服列表', response.data?.list ?? [])
+  } else {
+    console.error('获取客服列表失败', response.code)
+  }
+})
+```
+
+## contactCustomerService
+
+根据所选客服 username 和客服组 labelId 让 Flutter 打开聊天页
+
+调用路径：`window.chat.contactCustomerService`。
+
+### 接口声明
+
+```typescript
+contactCustomerService: (
+        params: { username: string, labelId: number | string },
+        callback?: (response: object | null) => void
+      ) => void
+```
+
+### 参数与返回说明
+
+```text
+username 必须是非空且不为纯空白的字符串，否则同步抛出 TypeError
+code === 0 表示成功，成功 data 为 {}；其他 code 原样传递
+@param { username, labelId } username 为客服用户名；labelId 为不同类型的客服组 ID，实际生产中自行获取
+```
+
+### 调用示例
+
+```javascript
+window.chat.contactCustomerService({ username: 'lex0000', labelId: 7 }, (response) => {
+  if (response.code === 0) {
+    console.log('已打开客服聊天')
+  } else {
+    console.error('打开客服聊天失败', response.code)
+  }
+})
+```

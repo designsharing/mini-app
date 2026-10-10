@@ -1,0 +1,21 @@
+---
+title: "Mini App SDK"
+description: "H5 小程序与宿主客户端的交互接口。"
+---
+
+Mini App SDK 通过 `window.chat` 提供客户端交互能力，包括登录、设备信息、存储、支付、蓝牙与 Passkey 等。
+
+## 开始接入
+
+1. 阅读[快速接入](/quickstart)，引入 SDK。
+2. TypeScript 项目配置[类型声明](/typescript)。
+3. 查看[初始化与生命周期](/sdk/lifecycle)，在宿主就绪后初始化应用。
+4. 通过侧边导航查找所需接口，并阅读[回调约定](/conventions)。
+
+## 使用环境
+
+这些接口需要支持相应能力的宿主客户端。文档网站用于阅读与复制示例；普通浏览器的文档预览不能验证原生能力。
+
+## 文档范围
+
+本文档按功能整理原 README 已说明的接口。完整类型定义见 [sdk-global.ts](https://github.com/designsharing/mini-app/blob/docs/mintlify/sdk-global.ts)，其中还有消息监听、调试等补充声明；本次未为缺少详细说明的方法编造用法。

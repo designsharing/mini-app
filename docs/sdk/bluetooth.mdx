@@ -1,0 +1,164 @@
+---
+title: "蓝牙"
+description: "按功能查阅 蓝牙 相关 SDK 方法。"
+---
+
+## bluetoothStartScan
+
+蓝牙 - 开始扫描附近设备
+
+调用路径：`window.chat.bluetoothStartScan`。
+
+### 接口声明
+
+```typescript
+bluetoothStartScan(callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 回调执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {
+    scanning: true,           // 是否正在扫描 boolean；false 表示扫描已结束
+    devices: [                // 当前已发现的设备列表 array
+      {
+        deviceId: '5C:1C:88:44:56:B7',  // 设备唯一标识（MAC地址）
+        name: 'TPY-S(BLE)',             // 设备名称
+        rssi: 0,                        // 信号强度，越大越近
+        type: 'generic',                // 设备类型枚举值
+        typeLabel: '经典蓝牙',           // 设备类型中文描述
+        isConnected: false              // 是否已连接，扫描列表中始终为 false
+      },
+    ],
+    error: '蓝牙权限被拒绝'  // 仅失败时存在，如"蓝牙权限被拒绝"、"请先开启蓝牙"
+  },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.bluetoothStartScan((response) => {
+  if (!response.data.scanning && response.data.error) {
+    console.error('扫描异常', response.data.error)
+    return
+  }
+  console.log('已发现设备', response.data.devices)
+})
+```
+
+## bluetoothStopScan
+
+蓝牙 - 停止扫描设备
+
+调用路径：`window.chat.bluetoothStopScan`。
+
+### 接口声明
+
+```typescript
+bluetoothStopScan(callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 回调执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {
+    scanning: false  // 扫描已停止 boolean
+  },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.bluetoothStopScan((response) => {
+  if (response.code === 0) {
+    console.log('扫描已停止', response.data.scanning)
+  }
+})
+```
+
+## bluetoothConnect
+
+蓝牙 - 连接指定设备
+
+调用路径：`window.chat.bluetoothConnect`。
+
+### 接口声明
+
+```typescript
+bluetoothConnect(deviceId: string, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param deviceId 要连接的设备唯一标识，由 bluetoothStartScan 返回的 devices[].deviceId
+@param callback 回调执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {
+    deviceId: 'xx:xx:xx:xx:xx:xx',  // 已连接的设备唯一标识
+    connected: true                  // 是否连接成功
+  },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.bluetoothConnect('xx:xx:xx:xx:xx:xx', (response) => {
+  if (response.code === 0 && response.data.connected) {
+    console.log('连接成功', response.data.deviceId)
+  }
+})
+```
+
+## bluetoothDisconnect
+
+蓝牙 - 断开当前已连接的设备
+
+调用路径：`window.chat.bluetoothDisconnect`。
+
+### 接口声明
+
+```typescript
+bluetoothDisconnect(callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 回调执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {
+    deviceId: 'xx:xx:xx:xx:xx:xx',  // 已断开的设备唯一标识
+    connected: false                  // 连接状态，断开后为 false
+  },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.bluetoothDisconnect((response) => {
+  if (response.code === 0) {
+    console.log('已断开设备', response.data.deviceId)
+  }
+})
+```

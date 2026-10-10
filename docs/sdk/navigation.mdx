@@ -1,0 +1,125 @@
+---
+title: "页面跳转与聊天"
+description: "按功能查阅 页面跳转与聊天 相关 SDK 方法。"
+---
+
+## onOpenWebview
+
+打开Webview
+
+调用路径：`window.chat.onOpenWebview`。
+
+### 接口声明
+
+```typescript
+onOpenWebview(url: string) => void
+```
+
+### 参数与返回说明
+
+```text
+@param url 要打开的网页地址
+```
+
+### 调用示例
+
+```javascript
+window.chat.onOpenWebview('https://example.com')
+```
+
+## onHomeBack
+
+关闭当前页面，回到控制台
+
+调用路径：`window.chat.onHomeBack`。
+
+### 接口声明
+
+```typescript
+onHomeBack() => void
+```
+
+### 调用示例
+
+```javascript
+window.chat.onHomeBack()
+```
+
+## openChatRoom
+
+根据聊天室 ID 直接进入聊天页
+
+调用路径：`window.chat.openChatRoom`。
+
+### 接口声明
+
+```typescript
+openChatRoom(chatId: number, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param chatId 聊天室 ID（必填）number
+@param callback 回调执行函数
+@callback response 回调数据结构
+--response示例（成功）
+{
+  success: true
+}
+--response示例（找不到聊天室）
+{
+  success: false,
+  error: string  // 错误描述
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.openChatRoom(123, (response) => {
+  if (response.success) {
+    console.log('已跳转聊天室')
+  } else {
+    console.error('跳转失败', response.error)
+  }
+})
+```
+
+## sendMessageToFriend
+
+根据用户 ID 打开与好友的聊天页
+
+调用路径：`window.chat.sendMessageToFriend`。
+
+### 接口声明
+
+```typescript
+sendMessageToFriend: (params: object, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+  userId: 12345 //目标用户 ID，须能转换为大于 0 的值 number | string
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: { success: true }, //跳转成功；用户无效、频率超限或跳转失败返回错误
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.sendMessageToFriend({ userId: 12345 }, (response) => {
+  console.log('跳转结果', response)
+});
+说明：Flutter 侧限制每分钟最多调用 10 次。
+```

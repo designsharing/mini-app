@@ -1,0 +1,14 @@
+---
+title: "TypeScript 配置"
+description: "为 window.chat 提供类型提示。"
+---
+
+`sdk-global.ts` 只包含类型声明，没有运行时逻辑。纯 JavaScript 项目无需引入。
+
+1. 将仓库中的 `sdk-global.ts` 复制到应用中，例如 `src/types/sdk-global.d.ts`。
+2. 确认该文件在 `tsconfig.json` 的 `include` 范围内。
+3. 仍需按照[快速接入](/quickstart)加载 SDK 的 JavaScript 文件。
+
+例如，若你的项目已有 `"include": ["src"]`，上述目录即在覆盖范围内。请在现有配置上补充，不要覆盖其他编译选项。
+
+SDK 升级时同步更新声明文件。下载来源：[sdk-global.ts](https://github.com/designsharing/mini-app/blob/docs/mintlify/sdk-global.ts)。

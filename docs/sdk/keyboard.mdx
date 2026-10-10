@@ -1,0 +1,91 @@
+---
+title: "键盘"
+description: "按功能查阅 键盘 相关 SDK 方法。"
+---
+
+## openFlutterKeyboardTap
+
+唤起flutter的键盘操作
+
+调用路径：`window.chat.openFlutterKeyboardTap`。
+
+### 接口声明
+
+```typescript
+openFlutterKeyboardTap(action: KeyTapActionType)=>void
+```
+
+### 参数与返回说明
+
+```text
+@param action
+show:打开数字键盘，不带小数点
+showWithDot：打开带小数点的键盘
+hide:关闭小数点键盘
+```
+
+### 调用示例
+
+```javascript
+window.chat.openFlutterKeyboardTap('show')
+```
+
+## getFlutterKeyboardTap
+
+flutter的键盘操作传过来的值
+
+调用路径：`window.chat.getFlutterKeyboardTap`。
+
+### 接口声明
+
+```typescript
+getFlutterKeyboardTap(callback?: (response: object | null) => void)=>void
+```
+
+### 参数与返回说明
+
+```text
+@param data
+keyTap：键盘按入数字
+delete：键盘按入删除
+done：键盘按入完成
+value:传过来的数字或者小数点，该值是每个单独的数字，按下1，就传过来1，其他也是如此
+```
+
+### 调用示例
+
+```javascript
+window.chat.getFlutterKeyboardTap((response)=>{})
+```
+
+## hideKeyboard
+
+让 Flutter 当前输入焦点失焦，从而隐藏系统键盘
+
+调用路径：`window.chat.hideKeyboard`。
+
+### 接口声明
+
+```typescript
+hideKeyboard: (callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {},
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.hideKeyboard((response) => {
+  console.log('hideKeyboard 结果', response)
+});
+```

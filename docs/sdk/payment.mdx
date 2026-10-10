@@ -1,0 +1,84 @@
+---
+title: "支付与资产"
+description: "按功能查阅 支付与资产 相关 SDK 方法。"
+---
+
+> 待确认：原说明使用 `prepayId`，调用示例使用 `prepay_id`；示例包含回调，原签名仅声明一个参数。以下保留原始约定与示例，实际接入前请由 SDK 维护者确认。
+
+## openCashier
+
+打开收银台
+
+调用路径：`window.chat.openCashier`。
+
+### 接口声明
+
+```typescript
+openCashier: (params: object) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+  prepayId: "347djchd-3394-44-98dd-2323dc9cdjc"  //预付订单号 string
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+   "appId": "23n34nm43nm34nk34jkx", //小程序ID string
+   "orderPayStatus": true,   //订单支付结果 boolean
+   "prepayId": "347djchd-3394-44-98dd-2323dc9cdjc" //预付订单号 string
+ }
+```
+
+### 调用示例
+
+```javascript
+window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, () => {
+  //收银台操作执行完后回调后续操作
+})
+```
+
+## getRequestAssets
+
+获取用户余额
+
+调用路径：`window.chat.getRequestAssets`。
+
+### 接口声明
+
+```typescript
+getRequestAssets: (callback: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+   data: {
+     totalAmt: 0.00,
+     totalAmtCurrencyType: "PEA",
+     PEA: {
+       user_avail: 0.00,
+       user_balance: 0.00,
+       user_box: 0.00
+     }
+   }, //返回所传key对应的数据
+   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.getRequestAssets((response) => {
+  console.log('用户余额信息', response)
+});
+```

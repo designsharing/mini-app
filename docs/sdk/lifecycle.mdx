@@ -1,0 +1,120 @@
+---
+title: "初始化与生命周期"
+description: "按功能查阅 初始化与生命周期 相关 SDK 方法。"
+---
+
+## onReady
+
+当客户端准备就绪时会执行，可在此事件的回调中初始化前端项目
+
+调用路径：`window.chat.onReady`。
+
+### 接口声明
+
+```typescript
+onReady: (callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {},
+  code: 0 | 1 //0代表请求正常并返回数据data，1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.onReady((response) => {
+  //可在此事件的回调中初始化前端项目
+  app.mount("#app");
+})
+```
+
+## closeLoading
+
+关闭进入小程序时客户端开启的loading
+
+调用路径：`window.chat.closeLoading`。
+
+### 接口声明
+
+```typescript
+closeLoading: () => void
+```
+
+### 调用示例
+
+```javascript
+window.addEventListener('load', () => {
+  window.chat.closeLoading()
+});
+```
+
+## sendKeepHeart
+
+发送心跳
+
+调用路径：`window.chat.sendKeepHeart`。
+
+### 接口声明
+
+```typescript
+sendKeepHeart(
+      appIdOrCallback?: string | ((response: object | null) => void),
+      callback?: (response: object | null) => void
+    ) => void
+```
+
+### 参数与返回说明
+
+```text
+@param appIdOrCallback 当前小程序 appId，或直接传入回调函数
+@param callback 第一个参数为 appId 时的回调函数
+```
+
+### 调用示例
+
+```javascript
+window.chat.sendKeepHeart(${小程序ID app-id}, (response) => {
+  console.log(response)
+});
+```
+
+## closeApp
+
+关闭当前外部应用面板/小程序容器，返回上一层级
+
+调用路径：`window.chat.closeApp`。
+
+### 接口声明
+
+```typescript
+closeApp: (callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {},
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.closeApp((response) => {
+  //先回传成功再关闭容器，避免页面销毁后收不到回调
+  console.log('closeApp 结果', response)
+});
+```

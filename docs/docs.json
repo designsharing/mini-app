@@ -1,0 +1,39 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Mini App SDK",
+  "colors": {
+    "primary": "#0D9373"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "开始使用",
+        "pages": [
+          "index",
+          "quickstart",
+          "typescript",
+          "conventions"
+        ]
+      },
+      {
+        "group": "SDK 接口",
+        "pages": [
+          "sdk/lifecycle",
+          "sdk/device",
+          "sdk/login",
+          "sdk/payment",
+          "sdk/media",
+          "sdk/storage",
+          "sdk/interface",
+          "sdk/keyboard",
+          "sdk/navigation",
+          "sdk/bluetooth",
+          "sdk/bot",
+          "sdk/passkey",
+          "sdk/support"
+        ]
+      }
+    ]
+  }
+}

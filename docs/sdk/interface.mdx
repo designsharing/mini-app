@@ -1,0 +1,293 @@
+---
+title: "界面与交互"
+description: "按功能查阅 界面与交互 相关 SDK 方法。"
+---
+
+## miniappBar
+
+设置右上角按钮显示or隐藏
+
+调用路径：`window.chat.miniappBar`。
+
+### 接口声明
+
+```typescript
+miniappBar: (params: number) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+display: 1 //1是显示，0是隐藏；默认1（显示）
+```
+
+### 调用示例
+
+```javascript
+window.chat.miniappBar(0); //设置右上角按钮隐藏
+```
+
+## rotateScreen
+
+设置屏幕横向纵向
+
+调用路径：`window.chat.rotateScreen`。
+
+### 接口声明
+
+```typescript
+rotateScreen: (orientation: number) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+orientation: 1 //1是纵向，0是左横向，2是右横向；默认1（纵向）
+```
+
+### 调用示例
+
+```javascript
+window.chat.rotateScreen(0); //设置左横向
+```
+
+## initFastClick
+
+设置fastClick
+
+调用路径：`window.chat.initFastClick`。
+
+### 接口声明
+
+```typescript
+initFastClick: () => void
+```
+
+### 调用示例
+
+```javascript
+window.chat.initFastClick();
+```
+
+## setThemeType
+
+设置右上角按钮深色/浅色
+
+调用路径：`window.chat.setThemeType`。
+
+### 接口声明
+
+```typescript
+setThemeType: (themeType: number) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+themeType: 1 //1是浅色，0是深色
+```
+
+### 调用示例
+
+```javascript
+window.chat.setThemeType(0); //设置深色
+```
+
+## setMiniBarPos
+
+设置右上角bar位置
+
+调用路径：`window.chat.setMiniBarPos`。
+
+### 接口声明
+
+```typescript
+setMiniBarPos: (params: object) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{x: number, y: number}
+```
+
+### 调用示例
+
+```javascript
+window.chat.setMiniBarPos({
+ x: 30,
+ y: 30
+}); //设置右上角按钮隐藏
+```
+
+## postBottomBarHide
+
+隐藏或显示底部
+
+调用路径：`window.chat.postBottomBarHide`。
+
+### 接口声明
+
+```typescript
+postBottomBarHide: (bool: boolean) => void
+```
+
+### 参数与返回说明
+
+```text
+@param bool=true 隐藏底部，false显示底部
+```
+
+### 调用示例
+
+```javascript
+window.chat.postBottomBarHide(true);
+```
+
+## postMiniAppContainerAppBarHide
+
+隐藏或显示导航条
+
+调用路径：`window.chat.postMiniAppContainerAppBarHide`。
+
+### 接口声明
+
+```typescript
+postMiniAppContainerAppBarHide: (bool: boolean) => void
+```
+
+### 参数与返回说明
+
+```text
+@param bool=true 隐藏导航条，false显示导航条
+```
+
+### 调用示例
+
+```javascript
+window.chat.postMiniAppContainerAppBarHide(true);
+```
+
+## showToast
+
+显示 Flutter 原生 Toast
+
+调用路径：`window.chat.showToast`。
+
+### 接口声明
+
+```typescript
+showToast: (params: object, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+  msg: '操作成功',  //Toast 文案 string
+  message: '操作成功', //msg 的兼容别名，二者传其一即可 string
+  type: 'success' | 'error' | 'fail' | 'warning' | 'info' //Toast 类型，默认 info
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: { success: true },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.showToast({ msg: '操作成功', type: 'success' }, (response) => {
+  console.log('toast 结果', response)
+});
+```
+
+## setNavigationBarTitle
+
+设置 Flutter 小程序容器顶部导航栏标题
+
+调用路径：`window.chat.setNavigationBarTitle`。
+
+### 接口声明
+
+```typescript
+setNavigationBarTitle: (params: object, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+  title: '首页' //导航栏标题 string
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: { success: true },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.setNavigationBarTitle({ title: '首页' }, (response) => {
+  console.log('设置标题结果', response)
+});
+```
+
+## showPicker
+
+打开 Flutter 日期选择器，支持按月选择或日期区间选择
+
+调用路径：`window.chat.showPicker`。
+
+### 接口声明
+
+```typescript
+showPicker: (params: object, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+  isTimePeriod: false, //false 为按月选择，返回 yyyy/MM；true 为日期区间，返回 yyyy/MM/dd boolean
+  startTime: '2024/01/01', //区间模式下的起始日期 string
+  endTime: '2024/12/31' //区间模式下的结束日期 string
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: { value: '2024/06' }, //按月返回 yyyy/MM，区间返回起止日期
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错，用户取消或非法参数返回失败
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.showPicker({ isTimePeriod: false }, (response) => {
+  console.log('选择结果', response)
+});
+说明：日期限制在 2020 至 2100 年，区间不能超过一年；用户取消或输入无效时返回失败，不能静默不回调。
+```

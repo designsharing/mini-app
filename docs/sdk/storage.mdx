@@ -1,0 +1,165 @@
+---
+title: "本地与全局存储"
+description: "按功能查阅 本地与全局存储 相关 SDK 方法。"
+---
+
+## storeOnNative
+
+往客户端存储数据
+
+调用路径：`window.chat.storeOnNative`。
+
+### 接口声明
+
+```typescript
+storeOnNative: (params: object | null, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+   key: 'userName', //数据存储对应的key string
+   value: 'may' //需要存储的数据 string
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+   data: { isSuccess: true },
+   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.storeOnNative({
+  key: 'userName',
+  value: 'may'
+}, (response) => {
+   console.log('回调数据', response)
+});
+```
+
+## fetchStoredFromNative
+
+从客户端获取存储的数据
+
+调用路径：`window.chat.fetchStoredFromNative`。
+
+### 接口声明
+
+```typescript
+fetchStoredFromNative: (params: object | null, callback: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+   key: 'userName' //存储的数据对应的key
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+   data: {
+     key: 'userName',
+     value: 'may'
+   }, //返回所传key对应的数据
+   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.fetchStoredFromNative({ key: 'userName' }, (response) => {
+  console.log('取数据', response.data)
+});
+```
+
+## postSaveGlobalLocalStorage
+
+往客户端存储全局数据
+
+调用路径：`window.chat.postSaveGlobalLocalStorage`。
+
+### 接口声明
+
+```typescript
+postSaveGlobalLocalStorage: (params: object | null, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+   key: 'userName', //数据存储对应的key string
+   value: 'may' //需要存储的数据 string
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+   data: { isSuccess: true },
+   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.postSaveGlobalLocalStorage({
+  key: 'userName',
+  value: 'may'
+}, (response) => {
+   console.log('回调数据', response)
+});
+```
+
+## postReadGlobalLocalStorage
+
+往客户端获取全局存储的数据
+
+调用路径：`window.chat.postReadGlobalLocalStorage`。
+
+### 接口声明
+
+```typescript
+postReadGlobalLocalStorage: (params: object | null, callback: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param params 请求参数
+--请求参数
+{
+   key: 'userName', //需要读取数据对应的key string
+}
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+   data: { key: 'userName', value: 'may' }, //返回所传key对应的数据
+   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.postReadGlobalLocalStorage({
+  key: 'userName'
+}, (response) => {
+   console.log('回调数据', response)
+});
+```

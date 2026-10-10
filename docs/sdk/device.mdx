@@ -1,0 +1,267 @@
+---
+title: "应用配置与设备"
+description: "按功能查阅 应用配置与设备 相关 SDK 方法。"
+---
+
+## getAppConfig
+
+获取配置
+
+调用路径：`window.chat.getAppConfig`。
+
+### 接口声明
+
+```typescript
+getAppConfig: (callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {
+    currency: "USDT",  //企业货币类型 string
+    workSpaceId: 1234  //企业ID number
+  },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+非企业小程序时获取，data返回{}
+{
+  data: {}, code: 0 | 1
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.getAppConfig((response: object) => {
+  console.log('appConfig ',response)
+});
+```
+
+## getDeviceInfo
+
+获取设备信息
+
+调用路径：`window.chat.getDeviceInfo`。
+
+### 接口声明
+
+```typescript
+getDeviceInfo: (callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {
+    safeArea: {
+      top: 47.0,    //顶部安全距离 number
+      bottom: 34.0  //底部安全距离 number
+    },
+    languageCode: "zh"  //设备当前语言信息
+  },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.getDeviceInfo((response: object) => {
+  console.log('deviceInfo ',response.data)
+});
+```
+
+## getNetworkType
+
+获取宿主当前网络类型
+
+调用路径：`window.chat.getNetworkType`。
+
+### 接口声明
+
+```typescript
+getNetworkType: (callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: { networkType: 'wifi' | 'mobile' | 'none' },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.getNetworkType((response) => {
+  console.log('网络类型', response.data.networkType)
+});
+```
+
+## getLocation
+
+获取位置
+
+调用路径：`window.chat.getLocation`。
+
+### 接口声明
+
+```typescript
+getLocation: (callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+   data: {
+      "position": {
+        "longitude": -122.084,
+        "latitude": 37.4219983,
+        "timestamp": 1761288810843,
+        "accuracy": 5.0,
+        "altitude": 5.0,
+        "altitude_accuracy": 0.31958332657814026,
+        "floor": null,
+        "heading": 0.0,
+        "heading_accuracy": 0.0,
+        "speed": 0.0,
+        "speed_accuracy": 0.5,
+        "is_mocked": false,
+        "gnss_satellite_count": 0.0,
+        "gnss_satellites_used_in_fix": 0.0
+     },
+     "placemark": {
+       "name": "1600",
+       "street": "1600 Amphitheatre Pkwy",
+       "isoCountryCode": "US",
+       "country": "United States",
+       "postalCode": "94043",
+       "administrativeArea": "California",
+       "subAdministrativeArea": "Santa Clara County",
+       "locality": "Mountain View",
+       "subLocality": "",
+       "thoroughfare": "Amphitheatre Parkway",
+       "subThoroughfare": "1600"
+     }
+  },
+  code: 0 | 403 //0代表请求正常，并返回数据data；403代表请求异常
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.getLocation((response) => {
+  console.log('location position',response.data)
+})
+```
+
+## openScan
+
+打开扫码
+
+调用路径：`window.chat.openScan`。
+
+### 接口声明
+
+```typescript
+openScan(callback?: (response: object | null) => void)=>void
+```
+
+### 参数与返回说明
+
+```text
+@param callback
+@callback response 回调数据结构
+--response示例
+{
+  data: {
+   url: 'xxx.xx/me/FCJFG9_2' // 扫码后得到的结果
+  },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.openScan((response)=>{})
+```
+
+## setToVibrate
+
+设置震动效果
+
+调用路径：`window.chat.setToVibrate`。
+
+### 接口声明
+
+```typescript
+setToVibrate: (duration: number) => void
+```
+
+### 参数与返回说明
+
+```text
+@param duration 震动持续时长，单位为毫秒；默认为50毫秒
+--请求参数
+duration: 100
+```
+
+### 调用示例
+
+```javascript
+window.chat.setToVibrate(100); //设设置震动效果
+```
+
+## setKeepScreenOn
+
+设置屏幕常亮
+
+调用路径：`window.chat.setKeepScreenOn`。
+
+### 接口声明
+
+```typescript
+setKeepScreenOn(keepScreenOn: boolean, callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param keepScreenOn true 开启常亮，false 关闭常亮（允许熄屏）
+@param callback 回调执行函数
+@callback response 回调数据结构
+--response示例
+{
+  success: true,        //本次操作是否成功 boolean
+  keepScreenOn: true    //当前屏幕常亮状态 boolean
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.setKeepScreenOn(true, (response) => {
+  console.log('屏幕常亮已开启', response.keepScreenOn)
+})
+window.chat.setKeepScreenOn(false) //关闭屏幕常亮
+```

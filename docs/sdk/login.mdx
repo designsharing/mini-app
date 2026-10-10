@@ -1,0 +1,38 @@
+---
+title: "登录"
+description: "按功能查阅 登录 相关 SDK 方法。"
+---
+
+## login
+
+小程序登录
+
+调用路径：`window.chat.login`。
+
+### 接口声明
+
+```typescript
+login: (callback?: (response: object | null) => void) => void
+```
+
+### 参数与返回说明
+
+```text
+@param callback 请求后执行函数
+@callback response 回调数据结构
+--response示例
+{
+  data: {
+    code: "347djchd-3394-44-98dd-2323dc9cdjc" // 用户登录凭证 string
+  },
+  code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+}
+```
+
+### 调用示例
+
+```javascript
+window.chat.login((response) => {
+ console.log('login code', response.data.code)
+})
+```

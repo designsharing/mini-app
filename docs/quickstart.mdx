@@ -1,0 +1,36 @@
+---
+title: "快速接入"
+description: "加载 SDK，并在宿主环境中开始使用。"
+---
+
+## 获取 SDK
+
+本次整理时仓库提供 `mini-app-open-sdk@1.0.64.min.js`。从[仓库](https://github.com/designsharing/mini-app/tree/docs/mintlify)下载该文件，放到项目可公开访问的静态资源目录，例如 Vite 的 `public/`。
+
+## 在应用入口前引入
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <script src="/mini-app-open-sdk@1.0.64.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+```
+
+示例中的路径以静态资源部署位置为准。升级 SDK 时，需同步替换文件和引用版本。
+
+## 等待客户端就绪
+
+```javascript
+window.chat.onReady((response) => {
+  // 在此初始化你的前端应用。
+  console.log('客户端就绪', response)
+})
+```
+
+更多内容见[初始化与生命周期](/sdk/lifecycle)。SDK 文件引入成功不代表宿主已实现全部接口，需在目标客户端验证。

@@ -1,0 +1,151 @@
+---
+title: "Passkey"
+description: "按功能查阅 Passkey 相关 SDK 方法。"
+---
+
+宿主需要实现 `onPasskeyGetCapabilities`、`onPasskeyCreate`、`onPasskeyGet`、`onPasskeyCancel`。四个方法均返回 Promise，业务响应包含 `data` 和 `code`（0 为成功，1 为报错）。SDK 内部路由使用的 `methodName` 不会透传给 H5。
+
+## getCapabilities
+
+检测当前设备和 Flutter 宿主是否支持 Passkey
+
+调用路径：`window.chat.passkey.getCapabilities`。
+
+### 接口声明
+
+```typescript
+getCapabilities: () => Promise<{ data: object; code: number } | null>
+```
+
+### 参数与返回说明
+
+```text
+Flutter 事件：onPasskeyGetCapabilities
+@returns Passkey 能力检测结果 Promise
+```
+
+### 调用示例
+
+```javascript
+const response = await window.chat.passkey.getCapabilities()
+if (response?.code === 0) {
+  console.log('Passkey 能力信息', response.data)
+}
+```
+
+## create
+
+创建 Passkey
+
+调用路径：`window.chat.passkey.create`。
+
+### 接口声明
+
+```typescript
+create: (params: {
+        requestId: string
+        publicKey: Record<string, unknown>
+      }) => Promise<{ data: object; code: number } | null>
+```
+
+### 参数与返回说明
+
+```text
+Flutter 事件：onPasskeyCreate
+@param params 请求参数
+--请求参数
+{
+  requestId: '唯一请求标识', //建议每次调用生成新的 requestId string
+  publicKey: {} //业务后端返回的 Passkey 注册参数，必须可以被 JSON.stringify 序列化 object
+}
+@returns Passkey 创建结果 Promise
+```
+
+### 调用示例
+
+```javascript
+const requestId = crypto.randomUUID()
+const response = await window.chat.passkey.create({
+  requestId,
+  publicKey: registerOptions
+})
+if (response?.code === 0) {
+  //将 response.data 提交给业务后端完成注册验证
+  console.log('创建 Passkey 成功', response.data)
+}
+```
+
+## get
+
+使用已有 Passkey 进行认证
+
+调用路径：`window.chat.passkey.get`。
+
+### 接口声明
+
+```typescript
+get: (params: {
+        requestId: string
+        publicKey: Record<string, unknown>
+      }) => Promise<{ data: object; code: number } | null>
+```
+
+### 参数与返回说明
+
+```text
+Flutter 事件：onPasskeyGet
+@param params 请求参数
+--请求参数
+{
+  requestId: '唯一请求标识', //建议每次调用生成新的 requestId string
+  publicKey: {} //业务后端返回的 Passkey 认证参数，必须可以被 JSON.stringify 序列化 object
+}
+@returns Passkey 认证结果 Promise
+```
+
+### 调用示例
+
+```javascript
+const requestId = crypto.randomUUID()
+const response = await window.chat.passkey.get({
+  requestId,
+  publicKey: authenticationOptions
+})
+if (response?.code === 0) {
+  //将 response.data 提交给业务后端完成登录验证
+  console.log('Passkey 认证成功', response.data)
+}
+```
+
+## cancel
+
+取消指定的 Passkey 请求
+
+调用路径：`window.chat.passkey.cancel`。
+
+### 接口声明
+
+```typescript
+cancel: (params: {
+        requestId: string
+      }) => Promise<{ data: object; code: number } | null>
+```
+
+### 参数与返回说明
+
+```text
+Flutter 事件：onPasskeyCancel
+@param params 请求参数
+--请求参数
+{
+  requestId: '需要取消的请求标识' string
+}
+@returns 取消结果 Promise
+```
+
+### 调用示例
+
+```javascript
+const response = await window.chat.passkey.cancel({ requestId })
+console.log('取消 Passkey 结果', response)
+```
