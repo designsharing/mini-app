@@ -50,7 +50,11 @@ interface Window {
      * { 
      *   data: {
      *     currency: "USDT",  //企业货币类型 string
-     *     workSpaceId: 1234  //企业ID number
+     *     workSpaceId: 1234,  //企业ID number
+     *     deviceInfo: { // 设备信息，可用来判断设备型号来做适配（iPhone DUO）
+     *       brand: 'samsung',
+     *       model: 'SM-S921Q'
+     *     }
      *   },
      *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
      * }
@@ -63,7 +67,6 @@ interface Window {
      *   console.log('appConfig ',response)
      * });
      */
-    getAppConfig: (callback?: (response: object | null) => void) => void
 
     /**
      * 获取设备信息
