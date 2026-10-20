@@ -46,5 +46,5 @@ mint dev
 - SDK JavaScript 和 sdk-global.ts 不修改。
 - 引入示例版本由旧 1.0.17 更新为本仓库实际文件 1.0.64。
 - 客服方法按 sdk-global.ts 的 NormalChatApi 归属整理到 window.chat。
-- openCashier 的 prepayId / prepay_id 及回调差异保留并标注待确认。
+- openCashier 的请求参数已确认为 prepay_id，参数说明与调用示例已统一；文档接口声明同步 sdk-global.ts 的可选回调。
 - 原始接口声明与结构示例保留；不代表通过 TypeScript 编译或宿主实机测试。

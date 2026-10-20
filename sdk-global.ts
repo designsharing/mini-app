@@ -658,26 +658,30 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
         useError: (codeInfo: Record<string, string>, fn: CustomToastType) => void
       }
       /**
-          * 获取配置
-          * @param callback 请求后执行函数
-          * @callback response 回调数据结构 
-          * --response示例
-          * { 
-          *   data: {
-          *     currency: "USDT",  //企业货币类型 string
-          *     workSpaceId: 1234  //企业ID number
-          *   },
-          *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
-          * }
-          * 非企业小程序时获取，data返回{}
-          * {
-          *   data: {}, code: 0 | 1
-          * }
-          * @example
-          * window.chat.getAppConfig((response: object) => {
-          *   console.log('appConfig ',response)
-          * });
-          */
+       * 获取配置
+       * @param callback 请求后执行函数
+       * @callback response 回调数据结构 
+       * --response示例
+       * { 
+       *   data: {
+       *     currency: "USDT",  //企业货币类型 string
+       *     workSpaceId: 1234,  //企业ID number
+       *     deviceInfo: { // 设备信息，可用来判断设备型号来做适配（iPhone DUO）
+       *       brand: 'samsung',
+       *       model: 'SM-S921Q'
+       *     }
+       *   },
+       *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+       * }
+       * 非企业小程序时获取，data返回{}
+       * {
+       *   data: {}, code: 0 | 1
+       * }
+       * @example
+       * window.chat.getAppConfig((response: object) => {
+       *   console.log('appConfig ',response)
+       * });
+       */
       getAppConfig: (callback?: (response: object | null) => void) => void
 
       /**
@@ -801,7 +805,7 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
        * @param params 请求参数
        * --请求参数 
        * { 
-       *   prepayId: "347djchd-3394-44-98dd-2323dc9cdjc"  //预付订单号 string
+       *   prepay_id: "347djchd-3394-44-98dd-2323dc9cdjc"  //预付订单号 string
        * }
        * @param callback 请求后执行函数
        * @callback response 回调数据结构 
@@ -812,11 +816,11 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
        *    "prepayId": "347djchd-3394-44-98dd-2323dc9cdjc" //预付订单号 string
        *  }
        * @example
-       * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, () => {
+       * window.chat.openCashier({ prepay_id: "从后端获取预付订单号" }, () => {
        *   //收银台操作执行完后回调后续操作
        * })
        */
-      openCashier: (params: object, callback?: (data: object | null) => void) => void
+      openCashier: (params: { prepay_id: string }, callback?: (data: object | null) => void) => void()
 
       /**
        * 分享链接
