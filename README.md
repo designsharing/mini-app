@@ -168,7 +168,7 @@ interface Window {
      * @param params 请求参数
      * --请求参数 
      * { 
-     *   prepayId: "347djchd-3394-44-98dd-2323dc9cdjc"  //预付订单号 string
+     *   prepay_id: "347djchd-3394-44-98dd-2323dc9cdjc"  //预付订单号 string
      * }
      * @param callback 请求后执行函数
      * @callback response 回调数据结构 
@@ -183,7 +183,10 @@ interface Window {
      *   //收银台操作执行完后回调后续操作
      * })
      */
-    openCashier: (params: object) => void
+    openCashier: (
+      params: { prepay_id: string },
+      callback?: (response: object | null) => void
+    ) => void
 
     /**
      * 分享链接
