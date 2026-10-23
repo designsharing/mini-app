@@ -65,6 +65,16 @@ export interface ContactCustomerServiceResponse {
 
 export type ContactCustomerServiceCallback = (response: ContactCustomerServiceResponse) => void
 
+export interface OrgStructData {
+  departments: unknown[]
+  users: unknown[]
+}
+
+export interface OrgStructResponse {
+  data: OrgStructData
+  code: number
+}
+
 export type WsActionQueueData = {
   requestId: string
   action: string
@@ -658,30 +668,26 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
         useError: (codeInfo: Record<string, string>, fn: CustomToastType) => void
       }
       /**
-       * 获取配置
-       * @param callback 请求后执行函数
-       * @callback response 回调数据结构 
-       * --response示例
-       * { 
-       *   data: {
-       *     currency: "USDT",  //企业货币类型 string
-       *     workSpaceId: 1234,  //企业ID number
-       *     deviceInfo: { // 设备信息，可用来判断设备型号来做适配（iPhone DUO）
-       *       brand: 'samsung',
-       *       model: 'SM-S921Q'
-       *     }
-       *   },
-       *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
-       * }
-       * 非企业小程序时获取，data返回{}
-       * {
-       *   data: {}, code: 0 | 1
-       * }
-       * @example
-       * window.chat.getAppConfig((response: object) => {
-       *   console.log('appConfig ',response)
-       * });
-       */
+          * 获取配置
+          * @param callback 请求后执行函数
+          * @callback response 回调数据结构 
+          * --response示例
+          * { 
+          *   data: {
+          *     currency: "USDT",  //企业货币类型 string
+          *     workSpaceId: 1234  //企业ID number
+          *   },
+          *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+          * }
+          * 非企业小程序时获取，data返回{}
+          * {
+          *   data: {}, code: 0 | 1
+          * }
+          * @example
+          * window.chat.getAppConfig((response: object) => {
+          *   console.log('appConfig ',response)
+          * });
+          */
       getAppConfig: (callback?: (response: object | null) => void) => void
 
       /**
@@ -803,8 +809,8 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
       /**
        * 打开收银台
        * @param params 请求参数
-       * --请求参数 
-       * { 
+       * --请求参数
+       * {
        *   prepay_id: "347djchd-3394-44-98dd-2323dc9cdjc"  //预付订单号 string
        * }
        * @param callback 请求后执行函数
@@ -813,14 +819,14 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
        * {
        *    "appId": "23n34nm43nm34nk34jkx", //小程序ID string
        *    "orderPayStatus": true,   //订单支付结果 boolean
-       *    "prepayId": "347djchd-3394-44-98dd-2323dc9cdjc" //预付订单号 string
+       *    "prepayId": "347djchd-3394-44-98dd-2323dc9cdjc" //Flutter 回传字段，预付订单号 string
        *  }
        * @example
-       * window.chat.openCashier({ prepay_id: "从后端获取预付订单号" }, () => {
+       * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, () => {
        *   //收银台操作执行完后回调后续操作
        * })
        */
-      openCashier: (params: { prepay_id: string }, callback?: (data: object | null) => void) => void()
+      openCashier: (params: { prepay_id: string }, callback?: (data: object | null) => void) => void
 
       /**
        * 分享链接
@@ -1131,15 +1137,19 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
 
       /**
        * flutter的键盘操作传过来的值
-       * @param data 
+       * 同一 callback 函数重复注册只保留一份监听，不回放历史按键。
+       * 不同函数分别监听；连续收到相同按键仍会分别回调。
+       * @param callback 持续接收按键事件的回调
+       * @returns 取消监听函数；未传 callback 时返回 undefined。页面卸载时调用以释放监听。
        * keyTap：键盘按入数字
        * delete：键盘按入删除
        * done：键盘按入完成
        * value:传过来的数字或者小数点，该值是每个单独的数字，按下1，就传过来1，其他也是如此
        * @example
-       * window.chat.getFlutterKeyboardTap((data)=>{})
+       * const unsubscribe = window.chat.getFlutterKeyboardTap((data) => {})
+       * // 在页面卸载回调中执行：unsubscribe?.()
        */
-      getFlutterKeyboardTap: (callback?: (data: object | null) => void) => void
+      getFlutterKeyboardTap: (callback?: (data: object | null) => void) => (() => void) | undefined
       /**
        * 打开扫码
        */
@@ -1189,6 +1199,8 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
       showPicker: (params: ShowPickerParams, callback?: (data: object | null) => void) => void
       /** 获取当前网络类型 */
       getNetworkType: (callback?: (data: object | null) => void) => void
+      /** 获取组织架构数据 */
+      getOrgStructData: (callback?: (response: OrgStructResponse | null) => void) => void
       /** 隐藏系统键盘 */
       hideKeyboard: (callback?: (data: object | null) => void) => void
       /** 给好友发送消息 */
