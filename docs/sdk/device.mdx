@@ -41,7 +41,7 @@ getAppConfig: (callback?: (response: object | null) => void) => void
 ### 调用示例
 
 ```javascript
-window.chat.getAppConfig((response: object) => {
+window.chat.getAppConfig((response) => {
   console.log('appConfig ',response)
 });
 ```
@@ -79,7 +79,7 @@ getDeviceInfo: (callback?: (response: object | null) => void) => void
 ### 调用示例
 
 ```javascript
-window.chat.getDeviceInfo((response: object) => {
+window.chat.getDeviceInfo((response) => {
   console.log('deviceInfo ',response.data)
 });
 ```
@@ -268,4 +268,41 @@ window.chat.setKeepScreenOn(true, (response) => {
   console.log('屏幕常亮已开启', response.keepScreenOn)
 })
 window.chat.setKeepScreenOn(false) //关闭屏幕常亮
+```
+
+## getOrgStructData
+
+获取组织架构数据。调用路径：`window.chat.getOrgStructData`。
+
+### 接口声明
+
+```typescript
+interface OrgStructData {
+  departments: unknown[]
+  users: unknown[]
+}
+
+interface OrgStructResponse {
+  data: OrgStructData
+  code: number
+}
+
+getOrgStructData: (callback?: (response: OrgStructResponse | null) => void) => void
+```
+
+### 参数与返回说明
+
+`callback` 可选。返回数据包含部门数组 `departments` 和用户数组 `users`；数组元素结构未在 SDK 类型中进一步定义。回调可能返回 `null`，读取字段前需检查。
+
+### 调用示例
+
+```javascript
+window.chat.getOrgStructData((response) => {
+  if (response?.code === 0) {
+    console.log('部门', response.data.departments)
+    console.log('用户', response.data.users)
+  } else {
+    console.error('获取组织架构失败', response)
+  }
+})
 ```

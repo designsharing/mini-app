@@ -1,70 +1,71 @@
 ---
 title: "客服"
-description: "按功能查阅 客服 相关 SDK 方法。"
+description: "获取客服列表并打开客服会话。"
 ---
 
 ## getSupportList
 
-获取客服列表，由小程序展示列表
-
-调用路径：`window.chat.getSupportList`。
+获取客服列表，由小程序展示列表。调用路径：`window.chat.getSupportList`。
 
 ### 接口声明
 
 ```typescript
-getSupportList: (labelId: number | string, callback?: (response: object | null) => void) => void
+getSupportList: (labelId: SupportLabelId, callback?: GetSupportListCallback) => void
 ```
+
+类型定义见仓库 `sdk-global.ts`。`SupportLabelId` 为 `number`，必须是整数，无默认值，不接受数字字符串；非法参数同步抛出 `TypeError`。
 
 ### 参数与返回说明
 
-```text
-code === 0 表示成功，data.list 可以为空数组；列表字段原样返回
-@param labelId 不同类型的客服组 ID，实际业务中自行获取
-```
+`code === 0` 表示成功，`data.list` 可以为空数组。列表项包含 `nickname`（展示昵称）、`last_online`（最近在线时间，整数，0 也是合法值）和 `uuid`（客服标识），其他字段原样保留。
+
+失败时读取 `data.errorCode`，不补空列表。`uuid` 不要求标准 UUID 格式，且区分大小写；打开会话时应原样传入。
 
 ### 调用示例
 
 ```javascript
-window.chat.getSupportList(7, (response) => {
+const labelId = 7
+window.chat.getSupportList(labelId, (response) => {
   if (response.code === 0) {
     console.log('客服列表', response.data?.list ?? [])
   } else {
-    console.error('获取客服列表失败', response.code)
+    console.error('获取客服列表失败', response.code, response.data?.errorCode)
   }
 })
 ```
 
 ## contactCustomerService
 
-根据所选客服 username 和客服组 labelId 让 Flutter 打开聊天页
-
-调用路径：`window.chat.contactCustomerService`。
+根据所选客服 `uuid` 和列表对应的 `label_id` 让 Flutter 打开聊天页。调用路径：`window.chat.contactCustomerService`。
 
 ### 接口声明
 
 ```typescript
 contactCustomerService: (
-        params: { username: string, labelId: number | string },
-        callback?: (response: object | null) => void
-      ) => void
+  params: ContactCustomerServiceParams,
+  callback?: ContactCustomerServiceCallback
+) => void
+
+interface ContactCustomerServiceParams {
+  uuid: string
+  label_id: number
+}
 ```
 
 ### 参数与返回说明
 
-```text
-username 必须是非空且不为纯空白的字符串，否则同步抛出 TypeError
-code === 0 表示成功，成功 data 为 {}；其他 code 原样传递
-@param { username, labelId } username 为客服用户名；labelId 为不同类型的客服组 ID，实际生产中自行获取
-```
+`label_id` 必须为整数，并与获取所选客服列表时使用的标签一致。`uuid` 必须是非空且非纯空白字符串，校验后原样发送。无效参数同步抛出 `TypeError`。
+
+仅发送 `label_id` 和 `uuid`，不支持旧的 `username/labelId` 参数对象。`code === 0` 表示已发起打开会话，成功 `data` 为 `{}`；其他 `code` 原样传递。
 
 ### 调用示例
 
 ```javascript
-window.chat.contactCustomerService({ username: 'lex0000', labelId: 7 }, (response) => {
+window.chat.contactCustomerService({ label_id: 7, uuid: 'support_demo_01' }, (response) => {
   if (response.code === 0) {
-    console.log('已打开客服聊天')
+    console.log('已发起打开客服聊天')
   } else {
-    console.error('打开客服聊天失败', response.code)
+    console.error('打开客服聊天失败', response.code, response.data?.errorCode)
   }
 })
 ```

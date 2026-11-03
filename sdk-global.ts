@@ -26,15 +26,20 @@ export interface RequestSharedLinkResponse {
 
 /** 客服列表项，字段原样透传，并保留接口额外字段。 */
 export interface SupportListItem {
-  /** 客服用户名，打开客服聊天时原样传入。 */
-  username: string
-  /** 最近在线时间，保留 Flutter 返回的数值。 */
+  /** 客服昵称，仅用于展示。 */
+  nickname: string
+  /** 最近在线时间，保留 Flutter 返回的整数，0 也是合法值。 */
   last_online: number
+  /** 不透明且区分大小写的客服标识，打开聊天时原样传入。 */
+  uuid: string
   [key: string]: unknown
 }
 
 export interface GetSupportListData {
-  list: SupportListItem[]
+  /** 成功时返回列表，空数组也是成功。 */
+  list?: SupportListItem[]
+  /** 失败时返回宿主错误，不补空列表。 */
+  errorCode?: string
 }
 
 export interface GetSupportListResponse {
@@ -46,14 +51,14 @@ export interface GetSupportListResponse {
 
 export type GetSupportListCallback = (response: GetSupportListResponse) => void
 
-/** 不同类型的客服组 ID，实际生产中由业务方自行获取。 */
-export type SupportLabelId = number | string
+/** 必填整数客服标签，由业务方决定，无默认值，不接受数字字符串。 */
+export type SupportLabelId = number
 
 export interface ContactCustomerServiceParams {
-  /** 所选客服用户名；非空且非纯空白字符串，原样发送。 */
-  username: string
-  /** 不同类型的客服组 ID，实际生产中由业务方自行获取。 */
-  labelId: SupportLabelId
+  /** 所选客服 UUID；非空且非纯空白字符串，不要求标准 UUID 格式，原样发送。 */
+  uuid: string
+  /** 必须与获取所选客服列表时的标签一致。 */
+  label_id: SupportLabelId
 }
 
 export interface ContactCustomerServiceResponse {
@@ -73,6 +78,21 @@ export interface OrgStructData {
 export interface OrgStructResponse {
   data: OrgStructData
   code: number
+}
+
+export interface SendTransferMessageParams {
+  /** 币种 */
+  currency: string
+  /** 会话 ID */
+  conversationId: number
+  /** 订单 ID */
+  txID: string
+  /** 转账金额 */
+  amount: string
+  /** 备注 */
+  remark?: string
+  /** 小程序交易详情的路由以及参数 */
+  actionUrl: string
 }
 
 export type WsActionQueueData = {
@@ -668,26 +688,30 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
         useError: (codeInfo: Record<string, string>, fn: CustomToastType) => void
       }
       /**
-          * 获取配置
-          * @param callback 请求后执行函数
-          * @callback response 回调数据结构 
-          * --response示例
-          * { 
-          *   data: {
-          *     currency: "USDT",  //企业货币类型 string
-          *     workSpaceId: 1234  //企业ID number
-          *   },
-          *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
-          * }
-          * 非企业小程序时获取，data返回{}
-          * {
-          *   data: {}, code: 0 | 1
-          * }
-          * @example
-          * window.chat.getAppConfig((response: object) => {
-          *   console.log('appConfig ',response)
-          * });
-          */
+       * 获取配置
+       * @param callback 请求后执行函数
+       * @callback response 回调数据结构
+       * --response示例
+       * {
+       *   data: {
+       *     currency: "USDT",  //企业货币类型 string
+       *     workSpaceId: 1234,  //企业ID number
+       *     deviceInfo: { // 设备信息，可用来判断设备型号来做适配（iPhone DUO）
+       *       brand: 'samsung',
+       *       model: 'SM-S921Q'
+       *     }
+       *   },
+       *   code: 0 | 1 //0代表请求正常，并返回数据data；1代表请求报错
+       * }
+       * 非企业小程序时获取，data返回{}
+       * {
+       *   data: {}, code: 0 | 1
+       * }
+       * @example
+       * window.chat.getAppConfig((response: object) => {
+       *   console.log('appConfig ',response)
+       * });
+       */
       getAppConfig: (callback?: (response: object | null) => void) => void
 
       /**
@@ -822,7 +846,7 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
        *    "prepayId": "347djchd-3394-44-98dd-2323dc9cdjc" //Flutter 回传字段，预付订单号 string
        *  }
        * @example
-       * window.chat.openCashier({ prepay_id: "从后端获取预付订单号"}, () => {
+       * window.chat.openCashier({ prepay_id: "从后端获取预付订单号" }, () => {
        *   //收银台操作执行完后回调后续操作
        * })
        */
@@ -1181,9 +1205,9 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
       onHomeBack: () => void
       /** 根据聊天室 ID 直接进入聊天页 */
       openChatRoom: (chatId: number, callback?: (data: object | null) => void) => void
-      /** 根据客服组 ID 获取客服列表。 */
+      /** 根据整数客服标签获取列表；非法标签同步抛出 TypeError。 */
       getSupportList: (labelId: SupportLabelId, callback?: GetSupportListCallback) => void
-      /** 根据客服组 ID 和所选客服 username 打开聊天室；非法 username 同步抛出 TypeError。 */
+      /** 根据 label_id 和所选客服 uuid 打开聊天室；非法参数同步抛出 TypeError。 */
       contactCustomerService: (params: ContactCustomerServiceParams, callback?: ContactCustomerServiceCallback) => void
       /** 分享小程序二维码；新旧 Flutter 宿主当前均未注册对应 handler。 */
       shareMiniAppQrCode: (params?: { query?: Record<string, string | number>; title?: string }) => void
@@ -1205,6 +1229,8 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
       hideKeyboard: (callback?: (data: object | null) => void) => void
       /** 给好友发送消息 */
       sendMessageToFriend: (params: SendMessageToFriendParams, callback?: (data: object | null) => void) => void
+      /** 发送转账消息 */
+      sendTransferMessage: (params: SendTransferMessageParams, callback?: (data: object | null) => void) => void
       /**
        * 注销消息监听器：
        * - off() 清空所有监听器

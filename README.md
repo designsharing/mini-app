@@ -26,7 +26,7 @@ H5 小程序与宿主客户端交互的 JavaScript SDK。
 
 ## SDK 文件
 
-- [SDK 1.0.64](mini-app-open-sdk@1.0.64.min.js)
+- [SDK 1.0.65](mini-app-open-sdk@1.0.65.min.js)
 - [TypeScript 类型声明](sdk-global.ts)
 
 ## 维护与发布

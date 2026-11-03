@@ -39,13 +39,16 @@ flutter的键盘操作传过来的值
 ### 接口声明
 
 ```typescript
-getFlutterKeyboardTap(callback?: (response: object | null) => void)=>void
+getFlutterKeyboardTap: (callback?: (data: object | null) => void) => (() => void) | undefined
 ```
 
 ### 参数与返回说明
 
 ```text
-@param data
+同一 callback 函数重复注册只保留一份监听，不回放历史按键。
+不同函数分别监听；连续收到相同按键仍会分别回调。
+@param callback 持续接收按键事件的回调
+@returns 取消监听函数；未传 callback 时返回 undefined。页面卸载时调用以释放监听。
 keyTap：键盘按入数字
 delete：键盘按入删除
 done：键盘按入完成
@@ -55,7 +58,11 @@ value:传过来的数字或者小数点，该值是每个单独的数字，按�
 ### 调用示例
 
 ```javascript
-window.chat.getFlutterKeyboardTap((response)=>{})
+const unsubscribe = window.chat.getFlutterKeyboardTap((response) => {
+  console.log('键盘事件', response)
+})
+// 在页面卸载回调中执行：
+// unsubscribe?.()
 ```
 
 ## hideKeyboard
