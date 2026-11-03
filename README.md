@@ -1048,37 +1048,42 @@ interface Window {
           requestId: string
         }) => Promise<{ data: object; code: number } | null>
       }
+
       /**
        * 获取客服列表，由小程序展示列表
        * code === 0 表示成功，data.list 可以为空数组；列表字段原样返回
-       * @param labelId 不同类型的客服组 ID，实际业务中自行获取
+       * @param labelId 必填整数客服组 ID，无默认值，不转换数字字符串
        * @example
        * window.chat.getSupportList(7, (response) => {
        *   if (response.code === 0) {
        *     console.log('客服列表', response.data?.list ?? [])
        *   } else {
-       *     console.error('获取客服列表失败', response.code)
+       *     console.error('获取客服列表失败', response.code, response.data?.errorCode)
        *   }
        * })
        */
-      getSupportList: (labelId: number | string, callback?: (response: object | null) => void) => void
+      getSupportList: (
+        labelId: number,
+        callback?: (response: object | null) => void
+      ) => void
   
       /**
-       * 根据所选客服 username 和客服组 labelId 让 Flutter 打开聊天页
-       * username 必须是非空且不为纯空白的字符串，否则同步抛出 TypeError
-       * code === 0 表示成功，成功 data 为 {}；其他 code 原样传递
-       * @param { username, labelId } username 为客服用户名；labelId 为不同类型的客服组 ID，实际生产中自行获取
+       * 根据所选客服 uuid 和列表对应的 label_id 让 Flutter 打开聊天页
+       * label_id 必须为整数；uuid 必须是非空且不为纯空白的字符串
+       * 无效参数同步抛出 TypeError；uuid 校验后原样发送
+       * code === 0 表示已发起打开会话，成功 data 为 {}；其他 code 原样传递
+       * @param params 仅发送 label_id 和 uuid，不支持旧 username/labelId 对象
        * @example
-       * window.chat.contactCustomerService({ username: 'lex0000', labelId: 7 }, (response) => {
+       * window.chat.contactCustomerService({ label_id: 7, uuid: 'support_demo_01' }, (response) => {
        *   if (response.code === 0) {
-       *     console.log('已打开客服聊天')
+       *     console.log('已发起打开客服聊天')
        *   } else {
-       *     console.error('打开客服聊天失败', response.code)
+       *     console.error('打开客服聊天失败', response.code, response.data?.errorCode)
        *   }
        * })
        */
       contactCustomerService: (
-        params: { username: string, labelId: number | string },
+        params: object,
         callback?: (response: object | null) => void
       ) => void
 
