@@ -36,7 +36,7 @@ window.chat.getSupportList(labelId, (response) => {
 
 ## contactCustomerService
 
-根据所选客服 `uuid` 和列表对应的 `label_id` 让 Flutter 打开聊天页。调用路径：`window.chat.contactCustomerService`。
+根据所选客服 `uuid` 和列表对应的 `label_id` 让客户端打开聊天页。调用路径：`window.chat.contactCustomerService`。
 
 ### 接口声明
 
@@ -54,9 +54,7 @@ interface ContactCustomerServiceParams {
 
 ### 参数与返回说明
 
-`label_id` 必须为整数，并与获取所选客服列表时使用的标签一致。`uuid` 必须是非空且非纯空白字符串，校验后原样发送。无效参数同步抛出 `TypeError`。
-
-仅发送 `label_id` 和 `uuid`，不支持旧的 `username/labelId` 参数对象。`code === 0` 表示已发起打开会话，成功 `data` 为 `{}`；其他 `code` 原样传递。
+仅发送 `label_id` 和 `uuid`。`code === 0` 表示已发起打开会话，成功 `data` 为 `{}`；其他 `code` 原样传递。
 
 ### 调用示例
 

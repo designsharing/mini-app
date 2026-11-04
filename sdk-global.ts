@@ -80,21 +80,6 @@ export interface OrgStructResponse {
   code: number
 }
 
-export interface SendTransferMessageParams {
-  /** 币种 */
-  currency: string
-  /** 会话 ID */
-  conversationId: number
-  /** 订单 ID */
-  txID: string
-  /** 转账金额 */
-  amount: string
-  /** 备注 */
-  remark?: string
-  /** 小程序交易详情的路由以及参数 */
-  actionUrl: string
-}
-
 export type WsActionQueueData = {
   requestId: string
   action: string
@@ -1229,8 +1214,6 @@ export interface NormalChatApi extends AdvancedChatApiExtension {
       hideKeyboard: (callback?: (data: object | null) => void) => void
       /** 给好友发送消息 */
       sendMessageToFriend: (params: SendMessageToFriendParams, callback?: (data: object | null) => void) => void
-      /** 发送转账消息 */
-      sendTransferMessage: (params: SendTransferMessageParams, callback?: (data: object | null) => void) => void
       /**
        * 注销消息监听器：
        * - off() 清空所有监听器
