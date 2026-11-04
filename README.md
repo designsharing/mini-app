@@ -1086,42 +1086,6 @@ interface Window {
         params: object,
         callback?: (response: object | null) => void
       ) => void
-
-      /**
-       * 发送转账消息
-       * @param params 请求参数，字段将原样发送给 Flutter
-       * --请求参数
-       * {
-       *   currency: 'USDT', //币种 string
-       *   conversationId: 12345, //会话 ID number
-       *   txID: 'transaction-id', //订单 ID string
-       *   amount: '10.00', //转账金额 string
-       *   remark: '转账备注', //备注 string，可选
-       *   actionUrl: '/transfer/detail?txID=transaction-id' //小程序交易详情路由及参数 string
-       * }
-       * @param callback Flutter 回包后的回调函数
-       * @callback response 回调数据结构
-       * --response示例
-       * {
-       *   data: {},
-       *   code: 0 | 1
-       * }
-       * @example
-       * window.chat.sendTransferMessage({
-       *   currency: 'USDT',
-       *   conversationId: 12345,
-       *   txID: 'transaction-id',
-       *   amount: '10.00',
-       *   remark: '转账备注',
-       *   actionUrl: '/transfer/detail?txID=transaction-id'
-       * }, (response) => {
-       *   console.log('发送转账消息结果', response)
-       * });
-       */
-      sendTransferMessage: (
-        params: object,
-        callback?: (response: object | null) => void
-      ) => void
     }
   }
   
