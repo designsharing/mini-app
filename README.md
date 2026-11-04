@@ -1068,11 +1068,9 @@ interface Window {
       ) => void
   
       /**
-       * 根据所选客服 uuid 和列表对应的 label_id 让 Flutter 打开聊天页
-       * label_id 必须为整数；uuid 必须是非空且不为纯空白的字符串
-       * 无效参数同步抛出 TypeError；uuid 校验后原样发送
+       * 根据所选客服 uuid 和列表对应的 label_id 让客户端打开聊天页
        * code === 0 表示已发起打开会话，成功 data 为 {}；其他 code 原样传递
-       * @param params 仅发送 label_id 和 uuid，不支持旧 username/labelId 对象
+       * @param params 仅发送 label_id 和 uuid
        * @example
        * window.chat.contactCustomerService({ label_id: 7, uuid: 'support_demo_01' }, (response) => {
        *   if (response.code === 0) {
