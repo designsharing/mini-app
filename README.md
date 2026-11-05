@@ -21,7 +21,6 @@ H5 小程序与宿主客户端交互的 JavaScript SDK。
 - [页面跳转与聊天](docs/sdk/navigation.mdx)
 - [蓝牙](docs/sdk/bluetooth.mdx)
 - [机器人](docs/sdk/bot.mdx)
-- [Passkey](docs/sdk/passkey.mdx)
 - [客服](docs/sdk/support.mdx)
 
 ## SDK 文件

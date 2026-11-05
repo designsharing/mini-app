@@ -30,7 +30,6 @@
           "sdk/navigation",
           "sdk/bluetooth",
           "sdk/bot",
-          "sdk/passkey",
           "sdk/support"
         ]
       }

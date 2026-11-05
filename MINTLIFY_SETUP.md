@@ -42,7 +42,7 @@ mint dev
 
 ## 本次整理范围
 
-- 按功能迁移原 README 中所有已说明的方法及 Passkey 前置条件。
+- 按功能维护 main README 中当前提供的接口说明。
 - SDK JavaScript 和 sdk-global.ts 跟随 main 更新；保留已确认的应用配置设备信息说明。
 - 引入示例版本由旧 1.0.17 更新为本仓库实际文件 1.0.64。
 - 客服方法按 sdk-global.ts 的 NormalChatApi 归属整理到 window.chat。
